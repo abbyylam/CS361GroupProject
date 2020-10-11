@@ -4,3 +4,4 @@
 - Jack Edwards (edwajack@oregonstate.edu)
 - Abigail Lam (lamab@oregonstate.edu)
 - Kyeongnam Kim (kimkyeon@oregonstate.edu)
+- Ryan Murphy (murphyr2@oregonstate.edu)
