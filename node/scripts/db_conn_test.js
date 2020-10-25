@@ -1,17 +1,16 @@
 var mysql = require('mysql');
+var dbConfig = require('../db_config.js')
 
-var con = mysql.createConnection({
-    host: 'foo',
-    user: 'foo',
-    password: 'foo'
-});
+var con = mysql.createConnection(dbConfig);
 
+process.stdout.write('Connecting to database...');
 con.connect(function(err) {
     if (err) throw err;
-    console.log("Connected");
-});
+    process.stdout.write(' Success\n');
 
-con.end(function(err) {
-    if (err) throw err;
-    console.log("Disconnected");
+    process.stdout.write('Disconnecting...');
+    con.end(function(err) {
+        if (err) throw err;
+        process.stdout.write(' Success\n');
+    });
 });
