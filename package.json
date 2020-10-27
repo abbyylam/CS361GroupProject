@@ -1,0 +1,29 @@
+{
+  "name": "Ethical-Eating",
+  "version": "1.0.0",
+  "description": "- Steve Peters-Luciani (peterst5@oregonstate.edu)\r - Jack Edwards (edwajack@oregonstate.edu)\r - Abigail Lam (lamab@oregonstate.edu)\r - Kyeongnam Kim (kimkyeon@oregonstate.edu)\r - Ryan Murphy (murphyr2@oregonstate.edu)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon ./server.js localhost 5000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterst5/ethical-eating.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peterst5/ethical-eating/issues"
+  },
+  "homepage": "https://github.com/peterst5/ethical-eating#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
