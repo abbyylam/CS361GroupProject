@@ -42,18 +42,18 @@ You should only have to create a route in Express if you are importing data from
 1. Check to see if a category for your route exists in the ./routes directory before creating a new one
 2. Add the function call for the route into the ./routes/{category}.js and setting an export keyword that describes the functionality
 
-    exports.index = function(req, res) {
-        /* Routes all non-assigned routes to React home */
-        res.sendFile(path.join(__dirname + '/client/build/index.html'));
-    }
+        exports.index = function(req, res) {
+            /* Routes all non-assigned routes to React home */
+            res.sendFile(path.join(__dirname + '/client/build/index.html'));
+        }
 
 3. In server.js, if a new category was created, require the file path for the category file
 
-    const site = require('./routes/site')
+        const site = require('./routes/site')
 
 4. Create the API call (GET, POST, PUT) with the route and the function
 
-    app.get('*', site.index)
+        app.get('*', site.index)
 
 
 ---
