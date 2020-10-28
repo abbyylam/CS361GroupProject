@@ -33,7 +33,7 @@ Finally, run the `db_conn_test.js` script to make sure everything is working:
     - If starting Node terminal for Production, run 'npm start'
     - To start the React terminal, run 'npm start'
 
-> *The Development run will watch for updates in Node and update htem in the browser in real time
+> *The Development run will watch for updates in Node and update htem in the browser in real time.
 
 ---
 
