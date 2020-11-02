@@ -1,0 +1,38 @@
+#wrapper {
+    overflow: wrap;
+    border-style: solid;
+    width: 100%;
+  }
+  
+  #wrapper2 {
+    overflow: wrap;
+  
+    width: 100%;
+  }
+  
+  .parent {
+    display: flex;
+    margin: auto;
+    width: 38%;
+    border: 3px solid black;
+    padding: 10px;
+    margin-top: 10vh;
+  }
+  .narrow {
+    width: 100px;
+  
+    /* Just so it's visible */
+  }
+  .wide {
+    width: 100px;
+  }
+  
+  .parent2 {
+    display: flex;
+    margin: auto;
+    width: 38%;
+    border: 3px solid black;
+    padding: 10px;
+    margin-top: 2vh;
+  }
+  
