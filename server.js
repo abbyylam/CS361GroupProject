@@ -3,6 +3,7 @@ const path = require('path');
 
 /* Route Paths */
 const site = require('./routes/site');
+const searchEngine = require('./routes/searchEngine')
 
 /* Create pool for MySQL DB */
 const mysql = require('mysql');
@@ -13,6 +14,7 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+app.get('/api/search', searchEngine.search);
 app.get('*', site.index);
 
 const port = process.env.PORT || 5000;
