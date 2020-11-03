@@ -11,7 +11,8 @@ class ManageApp extends Component {
 
     // Here we initialize our components state
     this.state = {
-      showForm: false
+      showForm: false,
+      recipeIngredients: []
     };
 
     this.onClick = this.onClick.bind(this);
@@ -20,11 +21,18 @@ class ManageApp extends Component {
   onClick() {
     // On click we change our state – this will trigger our `render` method
     this.setState({ showForm: true });
+
+    // On click we iterate through the "saved recipe prop and push all text into recipeIngredients state"
+    var recipeTextArray = []
+    for (var i = 0; i < this.props.recipe.length; i++){
+      recipeTextArray.push(this.props.recipe[i].text);
+    }
+    this.setState({recipeIngredients: recipeTextArray});
   }
 
   handleForm = (event) => {
     event.preventDefault(); // stops form from "refreshing" automatically - it follows action, hence the refresh
-    alert(`We Saved the Recipe: ${event.target.name.value} `); // show a simple dialog box with the values
+    alert(`We Saved the Recipe: ${event.target.name.value}, Ingredients:  ${this.state.recipeIngredients}`); // show a simple dialog box with the values
 
     this.setState({ showForm: false });
     // INSERT DATABASE CODE

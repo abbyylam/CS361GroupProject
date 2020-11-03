@@ -136,7 +136,7 @@ class CreateRecipe extends React.Component {
     </button>*/}
          
         </div>
-        <ManageApp />
+        <ManageApp recipe={this.state.saved}/>
       </React.Fragment>
     );
   }
