@@ -4,6 +4,7 @@ import List from "devextreme-react/list";
 import ArrayStore from "devextreme/data/array_store";
 import { tasks } from "../components/createRecipeIngListData"
 import "../components/createRecipe.css";
+import  ManageApp  from "../components/savedForm"
 import { Link, withRouter } from 'react-router-dom';
 
 const dataSource = new ArrayStore({
@@ -120,9 +121,10 @@ class CreateRecipe extends React.Component {
               Add{" "}
             </button>*/}
           </div>
-          <div onClick={() => this.removeClick(this.state.selectedItemKeys)} style={{border: "2px solid"}} class="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" tabindex="0" role="button"><div class="dx-button-content"><span class="dx-button-text">Remove Ingredient</span></div></div>
+          <div id="wrapper2" className="center wide">
 
-          <div onClick="" style={{border: "2px solid"}} class="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" tabindex="0" role="button"><div class="dx-button-content"><span class="dx-button-text">Save Recipe</span></div></div>
+          <div onClick={() => this.removeClick(this.state.selectedItemKeys)} style={{float: "right",width: "18.5vw", border: "2px solid"}}class="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" tabindex="0" role="button"><div class="dx-button-content"><span class="dx-button-text">Remove Ingredient</span></div></div>
+          </div>
 
           {/*<button className="btn" style={{border: "1px solid", backgroundColor: "white"}} onClick={() => this.removeClick(this.state.selectedItemKeys)}>
             {" "}
@@ -134,6 +136,7 @@ class CreateRecipe extends React.Component {
     </button>*/}
          
         </div>
+        <ManageApp />
       </React.Fragment>
     );
   }
