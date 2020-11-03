@@ -55,7 +55,7 @@ class CreateRecipe extends React.Component {
     list.push(newItem);
     this.setState({ saved: list });
 
-    console.log("THIS IS SAVED" + this.state.saved);
+    //console.log("THIS IS SAVED" + this.state.saved);
   }
 
   removeClick(item) {
@@ -83,10 +83,11 @@ class CreateRecipe extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="parent">
-          <div id="wrapper" className="center wide">
+        <div className="parent" style={{backgroundColor: "#282c34", color: "white"}}>
+          <div id="wrapper" className="center wide"style={{color: "white"}}>
             <p style={{ textAlign: "center" }}> INGREDIENT LIST! </p>
             <List
+              text="white"
               dataSource={dataSource}
               height={400}
               showSelectionControls={true}
@@ -112,19 +113,26 @@ class CreateRecipe extends React.Component {
         </div>
         <div className="parent2">
           <div id="wrapper2" className="center wide">
-            <button style={{float: "left",width: "18.5vw"}} onClick={() => this.addClick(this.state.selectedItemKeys)}>
+          <div onClick={() => this.addClick(this.state.selectedItemKeys)} style={{float: "left",width: "18.5vw", border: "2px solid"}} class="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" tabindex="0" role="button"><div class="dx-button-content"><span class="dx-button-text">Add Ingredient</span></div></div>
+
+            {/*<button className="btn"  style={{float: "left",width: "18.5vw", border: "1px solid", backgroundColor: "white"}} onClick={() => this.addClick(this.state.selectedItemKeys)}>
               {" "}
               Add{" "}
-            </button>
+            </button>*/}
           </div>
-          <button onClick={() => this.removeClick(this.state.selectedItemKeys)}>
+          <div onClick={() => this.removeClick(this.state.selectedItemKeys)} style={{border: "2px solid"}} class="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" tabindex="0" role="button"><div class="dx-button-content"><span class="dx-button-text">Remove Ingredient</span></div></div>
+
+          <div onClick="" style={{border: "2px solid"}} class="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" tabindex="0" role="button"><div class="dx-button-content"><span class="dx-button-text">Save Recipe</span></div></div>
+
+          {/*<button className="btn" style={{border: "1px solid", backgroundColor: "white"}} onClick={() => this.removeClick(this.state.selectedItemKeys)}>
             {" "}
             Remove{" "}
           </button>
-          <button onClick="">
+          <button className="btn" style={{border: "1px solid", backgroundColor: "white"}} onClick="">
             {" "}
             Save{" "}
-          </button>
+    </button>*/}
+         
         </div>
       </React.Fragment>
     );
