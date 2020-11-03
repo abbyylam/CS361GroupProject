@@ -46,7 +46,7 @@ class ManageApp extends Component {
           <label htmlFor="name">Recipe Name:</label>
           <input name="name" type="text" required />
 
-          <input name="done" type="submit" />
+          <input style={{width: "100px", height: "40px"}}name="done" type="submit" class="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" />
         </form>
       </div>
     );
