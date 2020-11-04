@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
 function Header(props) {
+    const [searchValue, setSearchValue] = useState("");
+
+    const updateSearchValue = (e) => {
+        setSearchValue(e.target.value);
+    };
+
     return(
         <div className="header">
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -10,8 +16,10 @@ function Header(props) {
                         Ethical Eating
                     </Link>
                     <form className="form-inline">
-                        <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-light" type="submit">Search</button>
+                        <input className="form-control mr-sm-2" type="text" placeholder="Search for a recipe" aria-label="Search" onChange={updateSearchValue} />
+                        <Link to={"/search?name=" + searchValue}>
+                            <button className="btn btn-light" type="submit">Search</button>
+                        </Link>
                     </form>
                     <div>
                         <ul className="navbar-nav ml-auto">
