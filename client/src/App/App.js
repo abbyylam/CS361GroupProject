@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Header, Footer } from './components';
-import { Home, RecipeBook, CreateRecipe, Search } from './pages';
+import { Home, RecipeBook, CreateRecipe, Search, RecipeListing } from './pages';
 
 import './App.css';
 
@@ -15,6 +15,7 @@ function App() {
           <Route exact path ='/recipe-book' component={RecipeBook} />
           <Route exact path ='/create-recipe' component={CreateRecipe} />
           <Route exact path ='/search' component={Search} />
+          <Route exact path ='/recipe/:recipeId' component={RecipeListing} />
         </Switch>
         <Footer />
       </Router>
