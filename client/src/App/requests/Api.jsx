@@ -9,11 +9,18 @@ function RecipeSearch(recipeName, showUserRecipes) {
     return(fetch(url));
 }
 
+function FetchRecipe(recipeId) {
+    const queryString = `recipeId=${encodeURIComponent(recipeId)}`;
+    let url = `${baseUrl}/recipe?${queryString}`;
+    return(fetch(url));
+}
+
 function Other() {
     return (baseUrl + '/other');
 }
 
 module.exports = {
     RecipeSearch: RecipeSearch,
+    FetchRecipe: FetchRecipe,
     Other: Other
 };
