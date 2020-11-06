@@ -28,9 +28,9 @@ class Recipe extends Component {
             return (
                 <div className="Recipe container">
                     <h1 className="my-5">{this.state.recipe[0].name}</h1>
-                    <div className="row">
+                    <div className="d-inline-flex flex-row flex-wrap">
                         {this.state.recipe[0].ingredients.map((ingredient, index) => {
-                            return <Ingredient ingredient={ingredient} />
+                            return <Ingredient ingredient={ingredient} key={index} />
                         })}
                     </div>
                 </div>
