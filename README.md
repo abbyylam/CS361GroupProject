@@ -64,3 +64,5 @@ If you're creating a page that doesn't require database access, you can just cre
 2. Add the page export to the index.js file in the pages directory
 3. Add the page to the ./pages import array on App.js
 4. Add a new Route to the Switch in the Router, setting the path to be your desired URL path and the component to your page function
+
+# TEST COMMIT FROM GITUHB99ER
