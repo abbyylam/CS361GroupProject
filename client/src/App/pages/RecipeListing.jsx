@@ -1,20 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useParams, withRouter } from 'react-router-dom';
-import { FetchRecipe } from '../requests/Api';
+import React from 'react';
+import { withRouter, BrowserRouter } from 'react-router-dom';
+import Recipe from '../components/Recipe';
 
-function Recipe(props) {
-    let id = props.match.params.recipeId;
-    const [recipeData, setRecipeData] = useState([]);
-
-    useEffect(() => {
-        FetchRecipe(id)
-        .then(res => res.json())
-        .then(res => setRecipeData(res));
-    }, []);
+function RecipeListing(props) {
+    const recipeId = props.match.params.recipeId;
 
   return (
-      "RECIPE"
+      <Recipe recipeId={recipeId} />
   );
 }
 
-export default withRouter(Recipe);
+export default withRouter(RecipeListing);
