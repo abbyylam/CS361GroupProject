@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter, BrowserRouter } from 'react-router-dom';
 import { RecipeSearch } from '../requests/Api';
 
@@ -8,23 +8,34 @@ function Search({ history }) {
     const [searchValue, setSearchValue] = useState(recipeNameFromUrl);
     const [searchResults, setSearchResults] = useState([]);
 
+    useEffect(() => {
+        if (searchValue) {
+            performSearch(searchValue);
+        }
+    }, []);
+
     history.listen((location, action) => {
         var newQueryStrings = new URLSearchParams(window.location.search);
         var newRecipeNameFromUrl = newQueryStrings.get('name');
         setSearchValue(newRecipeNameFromUrl);
+        performSearch(newRecipeNameFromUrl);
     });
 
     const updateSearchValue = (e) => {
         setSearchValue(e.target.value);
     };
 
-    const performSearch = (e) => {
-        RecipeSearch(searchValue)
+    const onSearchSubmit = (e) => {
+        performSearch(searchValue);
+        e.preventDefault();
+    };
+
+    const performSearch = (name) => {
+        RecipeSearch(name)
         .then(res => res.json())
         .then((result) => {
             setSearchResults(result);
         });
-        e.preventDefault();
     };
 
     const createResultItem = (recipeName) => {
@@ -43,7 +54,7 @@ function Search({ history }) {
                 <label><input name="showMine" type="checkbox"/> Show my recipes</label>
             </div>
             <div className="mr-sm-2">
-                <button className="btn btn-dark" type="submit" onClick={performSearch}>Search</button>
+                <button className="btn btn-dark" type="submit" onClick={onSearchSubmit}>Search</button>
             </div>
         </form>
     );
