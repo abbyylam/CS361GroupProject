@@ -9,18 +9,12 @@ class Ingredient extends Component {
     }
 
     render() {
-        let issueAction;
-
-        if (this.hasIssue) {
-            issueAction = <IssueIndicator />
-        }
-
         return (
             <div className="Ingredient col-sm-6">
                 <div className="card mb-3">
                     <div className="card-body">
                         <span className="name">{this.name}</span>
-                        {issueAction}
+                        {this.hasIssue && <IssueIndicator />}
                     </div>
                 </div>
             </div>
