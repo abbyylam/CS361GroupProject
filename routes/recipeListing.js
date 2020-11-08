@@ -36,7 +36,8 @@ exports.recipe = function (req, res) {
             "ethicalIssues" : [{
                 "id"    : 1,
                 "name"  : "animal welfare",
-                "description"   : "insufficient space and/or improper diet"
+                "description"   : "insufficient space and/or improper diet",
+                "evidenceUrl"   : "https://www.ethicalconsumer.org/food-drink/shopping-guide/milk"
             }],
             "altIngredients"    : [{
                 "id"    : 7,
