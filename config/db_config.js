@@ -1,6 +1,6 @@
 module.exports = {
     host: 'classmysql.engr.oregonstate.edu',
-    user: 'cs361_{your onid}}',
-    password: '{your password}',
-    database: 'cs361_{your onid}'
+    user: 'cs361_kimkyeon',
+    password: '9773',
+    database: 'cs361_kimkyeon'
 };
