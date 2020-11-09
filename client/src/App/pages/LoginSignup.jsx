@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
 import Modal from 'react-modal';
+
+import Signup from '../components/Signup'
+import Login from '../components/Login'
+
+import { Container, Row, Col } from 'react-bootstrap'
 
 const customStyles = {
     content : {
@@ -9,7 +13,8 @@ const customStyles = {
       right                 : 'auto',
       bottom                : 'auto',
       marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)'
+      transform             : 'translate(-50%, -50%)',
+      width                 : '70vw'
     }
 };
 
@@ -18,8 +23,14 @@ const LoginSignup = (props) => (
         isOpen={!!props.isModalOpen}
         onRequestClose={props.closeModal}
         contentLabel="Login/Signup Modal"
+        style={customStyles}
     >
-        <h3>This is Modal</h3>
+        <Container>
+            <Row>
+                <Col style={{borderRight: "1px solid grey"}}><Login /></Col>
+                <Col><Signup /></Col>
+            </Row>
+        </Container>
     </Modal>
 )
 
