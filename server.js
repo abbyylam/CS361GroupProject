@@ -1,19 +1,24 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
+
+/* Create pool for MySQL DB */
+const mysql = require('mysql');
+const dbconfig = require('./database/db_config.js');
+const pool = mysql.createPool(dbconfig);
 
 /* Route Paths */
 const site = require('./routes/site');
 const searchEngine = require('./routes/searchEngine');
 const recipeListing = require('./routes/recipeListing');
-
-/* Create pool for MySQL DB */
-const mysql = require('mysql');
-const dbconfig = require('./config/db_config.js');
-const pool = mysql.createPool(dbconfig);
+const account = require('./routes/account')(pool);
 
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'client')));
+app.use(bodyParser.json());
+
+app.post('/api/account', account.create);
 
 app.get('/api/search', searchEngine.search);
 app.get('/api/recipe', recipeListing.recipe);
