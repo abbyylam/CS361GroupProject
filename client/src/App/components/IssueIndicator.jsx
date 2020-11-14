@@ -7,16 +7,11 @@ class IssueIndicator extends Component {
         super(props);
     }
 
-    onClick = (e) => {
-        e.preventDefault();
-        console.log('Clicked');
-    }
-
     render() {
         return (
             <div className="Issue mt-2">
                 <FontAwesomeIcon icon={faExclamationCircle} />&nbsp;
-                <a href="" onClick={this.onClick}>See possible issue with this ingredient</a>
+                <a href="" onClick={this.props.onClick}>See possible issue with this ingredient</a>
             </div>
         )
     }
