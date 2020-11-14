@@ -9,15 +9,13 @@ con.connect(function(err) {
     if (err) OnSqlError(con, err);
     process.stdout.write('Success\n');
 
-    process.stdout.write('Creating \'user\' table... ');
-    var sql = 'CREATE TABLE user (' +
-        'Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, ' +
-        'Email varchar(255) NOT NULL, ' +
-        'Password char(60) NOT NULL);';
+    process.stdout.write('Selecting all rows from the \'users\' table... ');
+    var sql = 'SELECT * from user;';
 
     con.query(sql, function(err, result) {
         if (err) OnSqlError(con, err);
-        process.stdout.write('Success\n');
+        process.stdout.write('\n');
+        console.log(result);
 
         process.stdout.write('Disconnecting... ');
         con.end(function(err) {

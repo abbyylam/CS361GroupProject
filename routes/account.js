@@ -1,8 +1,9 @@
+const bcrypt = require('bcryptjs');
+
 module.exports = function(pool) {
     var module = {};
 
     module.create = function (req, res) {
-        console.log(req.body);
         let email = req.body.email;
         let password = req.body.password;
     
@@ -26,7 +27,8 @@ module.exports = function(pool) {
             }
 
             var sql = 'INSERT INTO user (Email, Password) VALUES (?, ?);';
-            var values = [email, password];
+            var hashedPassword = bcrypt.hashSync(password, 10);
+            var values = [email, hashedPassword];
 
             pool.query(sql, values, function(err, result) {
                 if (err) {
@@ -37,7 +39,6 @@ module.exports = function(pool) {
                     });
                 }
 
-                console.log(result);
                 return res.status(200).json({
                     'success': true,
                     'message': 'thank you, come again'
