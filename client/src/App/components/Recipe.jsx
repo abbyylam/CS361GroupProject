@@ -28,12 +28,11 @@ class Recipe extends Component {
         });
     };
 
-    openModal(e) {
-        e.preventDefault();
+    openModal() {
         this.setState({modalOpen: true});
     };
 
-    closeModal(e) {
+    closeModal() {
         this.setState({modalOpen: false});
     };
 
@@ -57,7 +56,7 @@ class Recipe extends Component {
                         })}
                     </div>
                     
-                    <EthicalAlternative modalOpen={this.state.modalOpen} onClose={this.closeModal} />
+                    {this.state.issueIngredient && <EthicalAlternative modalOpen={this.state.modalOpen} issueIngredient={this.state.issueIngredient} onClose={this.closeModal} />}
                 </div>
                 
             )

@@ -5,7 +5,7 @@ class Ingredient extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: this.props.ingredient.name,
+            ingredient: this.props.ingredient,
             hasIssue: this.props.ingredient.hasIssue
         }
     }
@@ -15,8 +15,8 @@ class Ingredient extends Component {
             <div className="Ingredient col-sm-6">
                 <div className="card mb-3">
                     <div className="card-body">
-                        <span className="name">{this.state.name}</span>
-                        {this.state.hasIssue && <IssueIndicator onClick={this.props.openModal} />}
+                        <span className="name">{this.state.ingredient.name}</span>
+                        {this.state.hasIssue && <IssueIndicator onClick={this.props.openModal} issueIngredient={this.props.ingredient} setIngredient={this.props.setIngredient} />}
                     </div>
                 </div>
             </div>

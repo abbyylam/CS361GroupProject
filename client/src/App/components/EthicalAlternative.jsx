@@ -5,7 +5,7 @@ class EthicalAlternative extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            issueIngredient: '',
+            issueIngredient: this.props.issueIngredient.name,
             ethicalIssues: [],
             altIngredients: []
         }
@@ -15,7 +15,7 @@ class EthicalAlternative extends Component {
         return(
             <Modal show={this.props.modalOpen} onHide={this.props.onClose}>
                 <Modal.Header closeButton>
-                    
+                    <Modal.Title>Issues and Alternatives for {this.state.issueIngredient}</Modal.Title>
                 </Modal.Header>
             </Modal>
         )
