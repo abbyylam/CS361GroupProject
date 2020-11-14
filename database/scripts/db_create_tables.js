@@ -12,8 +12,6 @@ con.connect(function(err) {
     process.stdout.write('Creating \'user\' table... ');
     var sql = 'CREATE TABLE user (' +
         'Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, ' +
-        'FirstName varchar(255) NOT NULL, ' +
-        'LastName varchar(255) NOT NULL, ' +
         'Email varchar(255) NOT NULL, ' +
         'Password char(40) NOT NULL);';
 
