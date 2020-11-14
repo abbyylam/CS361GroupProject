@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import { FetchRecipe } from '../requests/Api';
 import Ingredient from './Ingredient';
+import EthicalAlternative from './EthicalAlternative';
 
 class Recipe extends Component {
     constructor (props) {
         super(props);
         this.id = this.props.recipeId;
-        this.state = { recipe: null};
+        this.state = {
+            recipe: null,
+            modalOpen: false,
+            issueIngredient: null
+        };
+
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.setIssueIngredient = this.setIssueIngredient.bind(this);
     }
+
     componentDidMount() {
         FetchRecipe(this.id)
         .then(res => {
@@ -17,6 +27,18 @@ class Recipe extends Component {
             this.setState({ recipe })
         });
     };
+
+    openModal() {
+        this.setState({modalOpen: true});
+    };
+
+    closeModal() {
+        this.setState({modalOpen: false});
+    };
+
+    setIssueIngredient(ingredient) {
+        this.setState({issueIngredient: ingredient});
+    }
 
 
     render() {
@@ -30,9 +52,11 @@ class Recipe extends Component {
                     <h1 className="my-5">{this.state.recipe[0].name}</h1>
                     <div className="d-inline-flex flex-row flex-wrap">
                         {this.state.recipe[0].ingredients.map((ingredient, index) => {
-                            return <Ingredient ingredient={ingredient} key={index} />
+                            return <Ingredient ingredient={ingredient} key={index} openModal={this.openModal} setIngredient={this.setIssueIngredient} />
                         })}
                     </div>
+                    
+                    {this.state.issueIngredient && <EthicalAlternative modalOpen={this.state.modalOpen} issueIngredient={this.state.issueIngredient} onClose={this.closeModal} />}
                 </div>
                 
             )
