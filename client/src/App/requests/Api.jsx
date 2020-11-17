@@ -14,6 +14,12 @@ function FetchRecipe(recipeId) {
     return(fetch(url));
 }
 
+function FetchIngredient(ingredientId) {
+    const queryString = `ingredientId=${encodeURIComponent(ingredientId)}`;
+    let url = `${baseUrl}/ingredient?${queryString}`;
+    return(fetch(url));
+}
+
 function CreateAccount(email, password) {
     let url = `${baseUrl}/account`;
     let data = {
