@@ -13,7 +13,8 @@ con.connect(function(err) {
     var sql = 'CREATE TABLE user (' +
         'Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, ' +
         'Email varchar(255) NOT NULL, ' +
-        'Password char(60) NOT NULL);';
+        'Password char(64) NOT NULL, ' + 
+        'SessionId char(64));';
 
     con.query(sql, function(err, result) {
         if (err) OnSqlError(con, err);

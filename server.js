@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser')
 
 /* Create pool for MySQL DB */
 const mysql = require('mysql');
@@ -17,8 +18,10 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'client')));
 app.use(bodyParser.json());
+app.use(cookieParser())
 
 app.post('/api/account', account.create);
+app.post('/api/account/login', account.login)
 
 app.get('/api/search', searchEngine.search);
 app.get('/api/recipe', recipeListing.recipe);

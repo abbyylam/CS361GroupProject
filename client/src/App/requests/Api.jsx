@@ -30,8 +30,25 @@ function CreateAccount(email, password) {
     return(fetch(url, requestOptions));
 }
 
+function LoginAccount(email, password) {
+    let url = `${baseUrl}/account/login`
+    let data = {
+        'email': email,
+        'password': password
+    }
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    }
+
+    return(fetch(url, requestOptions))
+}
+
 module.exports = {
     RecipeSearch: RecipeSearch,
     FetchRecipe: FetchRecipe,
-    CreateAccount: CreateAccount
+    CreateAccount: CreateAccount,
+    LoginAccount: LoginAccount
 };
