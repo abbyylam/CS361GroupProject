@@ -16,14 +16,14 @@ module.exports = function(pool) {
                 console.log(err);
                 return res.status(500).json({
                     'success': false,
-                    'message': 'an error occurred'
+                    'message': 'An error occurred'
                 });
             }
 
             if (result.length > 0) {
                 return res.status(200).json({
                     'success': false,
-                    'message': 'email address is not available'
+                    'message': 'Email address is not available'
                 });
             }
 
@@ -36,13 +36,13 @@ module.exports = function(pool) {
                     console.log(err);
                     return res.status(500).json({
                         'success': false,
-                        'message': 'an error occurred'
+                        'message': 'An error occurred'
                     });
                 }
 
                 return res.status(200).json({
                     'success': true,
-                    'message': 'thank you, come again'
+                    'message': 'Account created successfully'
                 });
             })
         });
