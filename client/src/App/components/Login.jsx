@@ -22,7 +22,11 @@ function Login() {
         LoginAccount(email, password)
         .then(res => res.json())
         .then(result => {
-            
+            if (result.success) {
+                alert(result.message)
+            } else {
+                alert(result.message)
+            }
         })
     }
 

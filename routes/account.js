@@ -1,4 +1,3 @@
-const bcrypt = require('bcryptjs'); // Can't get the same result and verify the password
 const { hash } = require('./helper')
 const { v4: uuid } = require('uuid')
 
@@ -62,7 +61,7 @@ module.exports = function(pool) {
 
         return new Promise((resolve, reject) => {
             pool.query(
-                'SELECT Password, SessionId FROM user WHERE Email = ?;', 
+                'SELECT Id, Password, SessionId FROM user WHERE Email = ?;', 
                 [email], 
                 (error, result) => {
                     if (error) return reject(error)
@@ -75,15 +74,18 @@ module.exports = function(pool) {
             const hashedPassword = hash(req.body.password) 
 
             if (account && account.Password === hashedPassword) {
-                return { sessionId: account.SessionId }
+                return { 
+                    id: account.Id,
+                    sessionId: account.SessionId
+                }
             } else {
-                const error = new Error('Incorrect username/password')            
+                const error = new Error('Incorrect username/password')
 
                 throw error
             }
         })
         // Update session
-        .then(({ sessionId }) => {
+        .then(({ id, sessionId }) => {
             let sessionString
 
             // If session is already existed 
@@ -92,13 +94,13 @@ module.exports = function(pool) {
 
                 setSessionCookie({ sessionString, res })
             } else {
-                const id = uuid()
-                sessionString = `${email}|${id}`
+                const generatedId = uuid()
+                sessionString = `${email}|${generatedId}`
 
                 return new Promise((resolve, reject) => {
                     pool.query(
-                        'UPDATE user SET SessionId = ? WHERE Email = ?;',
-                        [id, email],
+                        'UPDATE user SET SessionId = ? WHERE Id = ?;',
+                        [generatedId, id],
                         (error, result) => {
                             if (error) return reject(error)
 
@@ -109,10 +111,21 @@ module.exports = function(pool) {
                 .then(() => {
                     setSessionCookie({ sessionString, res })
                 })
-                .catch(err => console.log(err))
             }
         })
-        .catch(err => console.log(err))
+        .then(() => {
+            return res.status(200).json({
+                'success': true,
+                'message': 'Login Successful!'
+            });
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                'success': false,
+                'message': err.toString().slice(7)
+            })
+        })
     }
 
     return module;
