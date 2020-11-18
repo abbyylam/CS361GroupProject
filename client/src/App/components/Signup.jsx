@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { CreateAccount } from '../requests/Api';
 
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap';
 
-function Signup() {
+function Signup(props) {
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
 
@@ -14,6 +14,10 @@ function Signup() {
     const updatePassword = (e) => {
         setPassword(e.target.value);
     };
+
+    const closeModal = () => {
+        props.closeModal();
+    }
 
     function passwordMeetsRequirements(password) {
         if (!password) return false;
@@ -41,13 +45,10 @@ function Signup() {
         CreateAccount(emailAddress, password)
             .then(res => res.json())
             .then((result) => {
-                // Handle API success
                 if (result.success) {
-                    // todo - dismiss the modal
-                    alert(result.message);
-                } else {
-                    alert(result.message);
+                    closeModal();
                 }
+                alert(result.message);
             });
     };
 
