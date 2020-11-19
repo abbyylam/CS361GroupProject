@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import IssueIndicator from './IssueIndicator';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 class Ingredient extends Component {
     constructor(props) {
@@ -8,6 +9,13 @@ class Ingredient extends Component {
             ingredient: this.props.ingredient,
             hasIssue: this.props.ingredient.hasIssue
         }
+        this.setIssueIngredient = this.setIssueIngredient.bind(this);
+    }
+
+    setIssueIngredient(e) {
+        e.preventDefault();
+        this.props.setIngredient(this.state.ingredient);
+        this.props.openModal();
     }
 
     render() {
@@ -16,7 +24,10 @@ class Ingredient extends Component {
                 <div className="card mb-3">
                     <div className="card-body">
                         <span className="name">{this.state.ingredient.name}</span>
-                        {this.state.hasIssue && <IssueIndicator onClick={this.props.openModal} issueIngredient={this.props.ingredient} setIngredient={this.props.setIngredient} />}
+                        {this.state.hasIssue && <div className="Issue mt-2">
+                            <FontAwesomeIcon icon={faExclamationCircle} />&nbsp;
+                            <a href="" onClick={this.setIssueIngredient}>See possible issue with this ingredient</a>
+                        </div>}
                     </div>
                 </div>
             </div>
