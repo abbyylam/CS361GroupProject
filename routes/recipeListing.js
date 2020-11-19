@@ -97,8 +97,11 @@ module.exports = function (pool) {
                     'message': 'ingredient not found'
                 })
             } else {
-                let ingredient = JSON.stringify(result);
-                return res.status(200).send(ingredient);
+                return res.status(200).json({
+                    'success': true,
+                    'message': 'ingredient found',
+                    'data': result
+                });
             }
         })
     
