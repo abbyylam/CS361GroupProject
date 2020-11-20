@@ -46,7 +46,7 @@ class ManageApp extends Component {
           <label htmlFor="name">Recipe Name:</label>
           <input name="name" type="text" required />
 
-          <input style={{width: "100px", height: "40px"}}name="done" type="submit" class="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" />
+          <input style={{width: "100px", height: "40px"}}name="done" type="submit" className="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" />
         </form>
       </div>
     );
@@ -59,7 +59,7 @@ class ManageApp extends Component {
     return (
       <div className="manage-app">
         
-        <div onClick={this.onClick} style={{border: "2px solid"}} class="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" tabindex="0" role="button"><div class="dx-button-content"><span class="dx-button-text">Save Recipe</span></div></div>
+        <div onClick={this.onClick} style={{border: "2px solid"}} className="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" tabIndex="0" role="button"><div className="dx-button-content"><span className="dx-button-text">Save Recipe</span></div></div>
 
         {/* We want to show the form if the state is true */}
         {showForm && this.renderForm()}
