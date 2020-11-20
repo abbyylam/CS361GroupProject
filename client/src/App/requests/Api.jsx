@@ -20,6 +20,11 @@ function FetchIngredient(ingredientId) {
     return(fetch(url));
 }
 
+function FetchIngredients() {
+    let url = `${baseUrl}/ingredients`;
+    return(fetch(url));
+}
+
 function CreateAccount(email, password) {
     let url = `${baseUrl}/account`;
     let data = {

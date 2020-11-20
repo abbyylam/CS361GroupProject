@@ -45,32 +45,15 @@ class CreateRecipe extends React.Component {
   }
 
   addClick(item) {
-    //console.log("HERE IS THE ITEM");
-    //console.log(item[0]);
     const newItem = { id: this.state.saved.id + 1, text: item[0] };
-    //this.setState({ saved: tasks });
-    //var newList = [];
-    //newList.push(item)
-    //console.log("THIS IS NEW LIST" + newList)
     var list = this.state.saved.slice();
     list.push(newItem);
     this.setState({ saved: list });
 
-    //console.log("THIS IS SAVED" + this.state.saved);
+    
   }
 
   removeClick(item) {
-    //console.log("REMOVE CLICKED");
-    ///console.log(item[0].text);
-    //console.log(this.state.saved);
-    //const newItem = { id: this.state.saved.id + 1, text: item[0] };
-    //this.setState({ saved: tasks });
-    //var newList = [];
-    //newList.push(item)
-    //console.log("THIS IS NEW LIST" + newList)
-    //var list = this.state.saved.slice();
-    //list.push(newItem);
-    //this.setState({ saved: list });
     var array = this.state.saved.slice();
 
     for (var i = 0; i < this.state.saved.length; i++) {
@@ -79,7 +62,7 @@ class CreateRecipe extends React.Component {
       }
     }
     this.setState({ saved: array });
-    //console.log("THIS IS SAVED" + this.state.saved[0].text);
+   
   }
   render() {
     return (
@@ -116,24 +99,11 @@ class CreateRecipe extends React.Component {
           <div id="wrapper2" className="center wide">
           <div onClick={() => this.addClick(this.state.selectedItemKeys)} style={{float: "left",width: "18.5vw", border: "2px solid"}} class="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" tabindex="0" role="button"><div class="dx-button-content"><span class="dx-button-text">Add Ingredient</span></div></div>
 
-            {/*<button className="btn"  style={{float: "left",width: "18.5vw", border: "1px solid", backgroundColor: "white"}} onClick={() => this.addClick(this.state.selectedItemKeys)}>
-              {" "}
-              Add{" "}
-            </button>*/}
           </div>
           <div id="wrapper2" className="center wide">
 
           <div onClick={() => this.removeClick(this.state.selectedItemKeys)} style={{float: "right",width: "18.5vw", border: "2px solid"}}class="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" tabindex="0" role="button"><div class="dx-button-content"><span class="dx-button-text">Remove Ingredient</span></div></div>
           </div>
-
-          {/*<button className="btn" style={{border: "1px solid", backgroundColor: "white"}} onClick={() => this.removeClick(this.state.selectedItemKeys)}>
-            {" "}
-            Remove{" "}
-          </button>
-          <button className="btn" style={{border: "1px solid", backgroundColor: "white"}} onClick="">
-            {" "}
-            Save{" "}
-    </button>*/}
          
         </div>
         <ManageApp recipe={this.state.saved}/>
