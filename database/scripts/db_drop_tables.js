@@ -1,56 +1,101 @@
 var mysql = require('mysql');
 var dbConfig = require('../db_config.js')
+var OnSqlError = require('../db_utils.js').OnSQLError;
 
-var con = mysql.createConnection(dbConfig);
+connect()
+    .then(dropUserTable)
+    .then(dropIngredientIssueTable)
+    .then(dropIngredientAlternativeTable)
+    .then(dropIngredientTable)
+    .then(dropIssueTable)
+    .then(disconnect);
 
-process.stdout.write('Connecting to database... ');
-con.connect(function(err) {
-    if (err) OnSqlError(con, err);
-    process.stdout.write('Success\n');
+function connect() {
+    return new Promise(function(resolve, reject) {
+        process.stdout.write('Connecting to database... ');
 
-    process.stdout.write('Dropping \'user\' table... ');
-    var sql = 'DROP TABLE user;';
-
-    con.query(sql, function(err, result) {
-        if (err) OnSqlError(con, err);
-        process.stdout.write('Success\n');
+        var con = mysql.createConnection(dbConfig);
+        con.connect(function(err) {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
     });
+}
 
-    process.stdout.write('Dropping \'ingredientIssue\' table... ');
-    var sql = 'DROP TABLE ingredientIssue;';
+function dropUserTable(con) {
+    return new Promise(function(resolve, reject) {
+        process.stdout.write('Dropping \'user\' table... ');
+        var sql = 'DROP TABLE user;';
 
-    con.query(sql, function(err, result) {
-        if (err) OnSqlError(con, err);
-        process.stdout.write('Success\n');
+        var result = con.query(sql, function(err, result) {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
     });
+}
 
-    process.stdout.write('Dropping \'ingredientAlternative\' table... ');
-    var sql = 'DROP TABLE ingredientAlternative;';
+function dropIngredientIssueTable(con) {
+    return new Promise(function(resolve, reject) {
+        process.stdout.write('Dropping \'ingredientIssue\' table... ');
+        var sql = 'DROP TABLE ingredientIssue;';
 
-    con.query(sql, function(err, result) {
-        if (err) OnSqlError(con, err);
-        process.stdout.write('Success\n');
+        con.query(sql, function(err, result) {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
     });
+}
 
-    process.stdout.write('Dropping \'ingredient\' table... ');
-    var sql = 'DROP TABLE ingredient;';
+function dropIngredientAlternativeTable(con) {
+    return new Promise(function(resolve, reject) {
+        process.stdout.write('Dropping \'ingredientAlternative\' table... ');
+        var sql = 'DROP TABLE ingredientAlternative;';
 
-    con.query(sql, function(err, result) {
-        if (err) OnSqlError(con, err);
-        process.stdout.write('Success\n');
+        con.query(sql, function(err, result) {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
     });
+}
 
-    process.stdout.write('Dropping \'issue\' table... ');
-    var sql = 'DROP TABLE issue;';
+function dropIngredientTable(con) {
+    return new Promise(function(resolve, reject) {
+        process.stdout.write('Dropping \'ingredient\' table... ');
+        var sql = 'DROP TABLE ingredient;';
 
-    con.query(sql, function(err, result) {
-        if (err) OnSqlError(con, err);
-        process.stdout.write('Success\n');
+        con.query(sql, function(err, result) {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
     });
+}
 
-    process.stdout.write('Disconnecting... ');
-    con.end(function(err) {
-        if (err) OnSqlError(con, err);
-        process.stdout.write('Success\n');
+function dropIssueTable(con) {
+    return new Promise(function(resolve, reject) {
+        process.stdout.write('Dropping \'issue\' table... ');
+        var sql = 'DROP TABLE issue;';
+
+        con.query(sql, function(err, result) {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
     });
-});
+}
+
+function disconnect(con) {
+    return new Promise(function(resolve, reject) {
+        process.stdout.write('Disconnecting... ');
+
+        con.end(function(err) {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve();
+        });
+    });
+}
