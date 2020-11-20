@@ -25,6 +25,7 @@ function Login(props) {
             if (result.success) {
                 alert(result.message)
                 props.closeModal()
+                document.location.reload()
             } else {
                 alert(result.message)
             }

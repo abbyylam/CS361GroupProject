@@ -3,26 +3,31 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Header, Footer } from './components';
 import { Home, RecipeBook, CreateRecipe, Search, RecipeListing } from './pages';
 
+import Cookies from 'js-cookie'
+
 import './App.css';
 
 function App() {
-    const [hasSessionId, setSessionId] = useState("")
+    // const [hasSessionId, setSessionId] = useState(Cookies.get('sessionId'))
+    // const [username, setUsername] = useState(hasSessionId ? Cookies.get('sessionId').split('|')[0] : '')
 
-    console.log("cookie", document.cookie)
+    const hasSessionId = Cookies.get('sessionId')
+    const username = hasSessionId ? Cookies.get('sessionId').split('|')[0] : ''
 
-    function hasSession() {
-        console.log(document.cookie.sessionId)
-        if (document.cookie.sessionId) {
-            setSessionId(true)
-        } else {
-            setSessionId(false)
-        }
+    if (hasSessionId) {
+        console.log("has session")
+        console.log("username is ", username)
+    } else {
+        console.log("no session")
     }
 
     return (
         <div className="App">
             <Router>
-                <Header />
+                <Header 
+                    hasSessionId={hasSessionId}
+                    username={username}
+                />
                 <Switch>
                 <Route exact path ='/' component={Home} />
                 <Route exact path ='/recipe-book' component={RecipeBook} />

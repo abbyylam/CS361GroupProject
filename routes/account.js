@@ -129,7 +129,41 @@ module.exports = function(pool) {
     }
 
     module.logout = function(req, res) {
-        console.log(req.cookie)
+        let email
+
+        if (req.cookies.sessionId) {
+            email = req.cookies.sessionId.split('|')[0]
+        } 
+
+        return new Promise((resolve, reject) => {
+            pool.query(
+                'UPDATE user SET SessionId = ? WHERE email = ?;',
+                [null, email],
+                (error, result) => {
+                    if (error) {
+                        const err = new Error('Logout failed') 
+                        
+                        throw err
+                    }
+
+                    resolve()
+                }
+            )
+        })
+        .then(() => {
+            res.clearCookie('sessionId')
+
+            return res.status(200).json({
+                'success': true,
+                'message': 'Logout successful!'
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                'success': false,
+                'message': err.toString().slice(7)
+            })
+        })
     }
 
     return module;
