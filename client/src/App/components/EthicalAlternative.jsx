@@ -6,37 +6,37 @@ class EthicalAlternative extends Component {
         super(props);
         this.state = {
             issueIngredient: this.props.issueIngredient.name,
-            ethicalIssues: '',
-            altIngredients: []
+            ethicalIssue: this.props.issueIngredient.ethicalIssues,
+            altIngredients: this.props.issueIngredient.altIngredients
         }
     }
 
     componentDidMount() {
-        let issueArr = this.props.issueIngredient.ethicalIssues;
-        let issues = '';
-            for (let i = 0; i < issueArr.length; i++) {
-                if (issueArr.length > 1) {
-                    if (i == issueArr.length - 1) {
-                        issues = issues + ' and ';
-                    } else {
-                        isses = issues + ', '
-                    }
-                }
-
-                issues = issues + issueArr[i].name
-            }
-        this.setState({ethicalIssues: issues});
     };
 
     render() {
+        let ingredient;
+
+        if (this.state.issueIngredient) {
+            ingredient = this.state.issueIngredient;
+        }
+
+        let issue, description, evidenceUrl;
+
+        if (this.state.ethicalIssue) {
+            issue = this.state.ethicalIssue.name;
+            description = this.state.ethicalIssue.description;
+            evidenceUrl = this.state.ethicalIssue.evidenceUrl;
+        }
 
         return(
             <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={this.props.modalOpen} onHide={this.props.onClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Issues and Alternatives for {this.state.issueIngredient}</Modal.Title>
+                    <Modal.Title>Issues and Alternatives for {ingredient}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>{this.state.issueIngredient} has issues regarding {this.state.ethicalIssues}.</p>
+                    <p>{ingredient} has issues regarding {issue}, including {description}.</p>
+                    <p>See the evidence from <a href={evidenceUrl} target="_blank">this resource</a>.</p>
                     <hr/>
                     <p>Ethical Alternatives will go here.</p>
                 </Modal.Body>

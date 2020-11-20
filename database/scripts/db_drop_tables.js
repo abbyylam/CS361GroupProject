@@ -16,6 +16,22 @@ con.connect(function(err) {
         process.stdout.write('Success\n');
     });
 
+    process.stdout.write('Dropping \'ingredientIssue\' table... ');
+    var sql = 'DROP TABLE ingredientIssue;';
+
+    con.query(sql, function(err, result) {
+        if (err) OnSqlError(con, err);
+        process.stdout.write('Success\n');
+    });
+
+    process.stdout.write('Dropping \'ingredientAlternative\' table... ');
+    var sql = 'DROP TABLE ingredientAlternative;';
+
+    con.query(sql, function(err, result) {
+        if (err) OnSqlError(con, err);
+        process.stdout.write('Success\n');
+    });
+
     process.stdout.write('Dropping \'ingredient\' table... ');
     var sql = 'DROP TABLE ingredient;';
 
