@@ -79,7 +79,7 @@ module.exports = function(pool) {
                     sessionId: account.SessionId
                 }
             } else {
-                const error = new Error('Incorrect username/password')
+                const error = new Error('Incorrect email address or password')
 
                 throw error
             }
@@ -116,11 +116,10 @@ module.exports = function(pool) {
         .then(() => {
             return res.status(200).json({
                 'success': true,
-                'message': 'Login Successful!'
+                'message': 'Login successful!'
             });
         })
         .catch(err => {
-            console.log(err)
             res.status(500).json({
                 'success': false,
                 'message': err.toString().slice(7)
