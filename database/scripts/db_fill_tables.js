@@ -19,7 +19,7 @@ con.connect(function(err) {
   });
   
   process.stdout.write('Filling \'issue\' table... \n');
-  sql = `INSERT INTO issue(Name,Description) VALUES ? `;
+  sql = `INSERT INTO issue(Name,Description, EvidenceUrl) VALUES ? `;
 
   con.query(sql, [issues.issues], function (err, result) {
     if (err) OnSqlError(con, err);

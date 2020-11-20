@@ -37,12 +37,12 @@ module.exports = function (pool) {
                 "id"    : 6,
                 "name"  : "mozarella cheese",
                 "hasIssue"  : true,
-                "ethicalIssues" : [{
+                "ethicalIssues" : {
                     "id"    : 1,
-                    "name"  : "animal welfare",
-                    "description"   : "insufficient space and/or improper diet",
-                    "evidenceUrl"   : "https://www.ethicalconsumer.org/food-drink/shopping-guide/milk"
-                }],
+                    "name"  : "treatment of animals",
+                    "description"   : "poor living conditions, insufficient space and/or improper diet",
+                    "evidenceUrl"   : "https://en.wikipedia.org/wiki/Animal_welfare#Farm_animals"
+                },
                 "altIngredients"    : [{
                     "id"    : 7,
                     "name"  : "milk - pasture raised",
@@ -97,8 +97,11 @@ module.exports = function (pool) {
                     'message': 'ingredient not found'
                 })
             } else {
-                let ingredient = JSON.stringify(result);
-                return res.status(200).send(ingredient);
+                return res.status(200).json({
+                    'success': true,
+                    'message': 'ingredient found',
+                    'data': result
+                });
             }
         })
     

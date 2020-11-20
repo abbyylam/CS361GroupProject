@@ -12,6 +12,7 @@ const pool = mysql.createPool(dbconfig);
 const site = require('./routes/site');
 const searchEngine = require('./routes/searchEngine');
 const recipeListing = require('./routes/recipeListing')(pool);
+const ingredients = require('./routes/ingredients')(pool)
 const account = require('./routes/account')(pool);
 
 const app = express();
@@ -26,6 +27,7 @@ app.post('/api/account/login', account.login)
 app.get('/api/search', searchEngine.search);
 app.get('/api/recipe', recipeListing.recipe);
 app.get('/api/ingredient', recipeListing.ingredient);
+app.get('/api/ingredients', ingredients.ingredients);
 app.get('*', site.index);
 
 const port = process.env.PORT || 5000;
