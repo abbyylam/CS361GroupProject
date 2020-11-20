@@ -38,7 +38,8 @@ con.connect(function(err) {
     var sql = 'CREATE TABLE IF NOT EXISTS issue (' +
         'Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, ' +
         'Name varchar(255) NOT NULL, ' +
-        'Description varchar(255) NOT NULL);';
+        'Description varchar(255) NOT NULL, ' +
+        'EvidenceUrl varchar(255) NOT NULL);';
 
     con.query(sql, function(err, result) {
         if (err) OnSqlError(con, err);
