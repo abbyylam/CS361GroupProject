@@ -4,12 +4,9 @@ module.exports = function (pool) {
 
     
     module.ingredients = function (req, res) {
-        let ingredientId = req.query.ingredientId;
-        
         var sql = 'SELECT * from ingredient';
-        var value = [ingredientId];
-
-        return pool.query(sql, value, function(err, result) {
+      
+        return pool.query(sql, function(err, result) {
             if (err) {
                 console.log(err);
                 return res.status(500).json({

@@ -20,7 +20,7 @@ function FetchIngredient(ingredientId) {
     return(fetch(url));
 }
 
-function FetchIngredients(ingredientId) {
+function FetchIngredients() {
     let url = `${baseUrl}/ingredients`;
     return(fetch(url));
 }
