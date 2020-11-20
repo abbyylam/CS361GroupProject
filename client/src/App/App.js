@@ -8,7 +8,7 @@ import './App.css';
 function App() {
     const [hasSessionId, setSessionId] = useState("")
 
-    console.log("cookie", document.cookie.sessionId)
+    console.log("cookie", document.cookie)
 
     function hasSession() {
         console.log(document.cookie.sessionId)

@@ -53,11 +53,10 @@ module.exports = function(pool) {
         const email = req.body.email
 
         const setSessionCookie = ({ sessionString, res }) => {
-            console.log(sessionString)
-
             res.cookie('sessionId', sessionString, {
                 expire: Date.now() + 3600000, // 1 hour
-                httpOnly: true
+                httpOnly: false,
+                encode: String
             })
         }
 
