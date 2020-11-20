@@ -4,7 +4,7 @@ import { Form, Button } from 'react-bootstrap'
 
 import { LoginAccount } from '../requests/Api'
 
-function Login() {
+function Login(props) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -24,6 +24,7 @@ function Login() {
         .then(result => {
             if (result.success) {
                 alert(result.message)
+                props.closeModal()
             } else {
                 alert(result.message)
             }

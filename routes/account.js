@@ -52,8 +52,10 @@ module.exports = function(pool) {
     module.login = function(req, res) {
         const email = req.body.email
 
-        const setSessionCookie = ({ sessionId, res }) => {
-            res.cookie('sessionId', sessionId, {
+        const setSessionCookie = ({ sessionString, res }) => {
+            console.log(sessionString)
+
+            res.cookie('sessionId', sessionString, {
                 expire: Date.now() + 3600000, // 1 hour
                 httpOnly: true
             })
@@ -125,6 +127,10 @@ module.exports = function(pool) {
                 'message': err.toString().slice(7)
             })
         })
+    }
+
+    module.logout = function(req, res) {
+        console.log(req.cookie)
     }
 
     return module;

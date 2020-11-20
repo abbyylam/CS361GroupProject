@@ -27,7 +27,7 @@ const LoginSignup = (props) => (
     >
         <Container>
             <Row>
-                <Col style={{borderRight: "1px solid grey"}}><Login /></Col>
+                <Col style={{borderRight: "1px solid grey"}}><Login closeModal={props.closeModal}/></Col>
                 <Col><Signup closeModal={props.closeModal}/></Col>
             </Row>
         </Container>
