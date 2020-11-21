@@ -8,6 +8,8 @@ connect()
     .then(createIssueTable)
     .then(createIngredientIssueTable)
     .then(createIngredientAlternativeTable)
+    .then(createRecipeTable)
+    .then(createRecipeIngredientTable)
     .then(disconnect);
 
 function connect() {
@@ -107,6 +109,43 @@ function createIngredientAlternativeTable(con) {
                 'ON DELETE CASCADE,' +
             'CONSTRAINT `fk_alt_ingredient_id`' + 
                 'FOREIGN KEY (AltIngredientId) REFERENCES ingredient (id)' + 
+                'ON DELETE CASCADE);';
+    
+        con.query(sql, function(err, result) {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
+    });
+}
+
+function createRecipeTable(con) {
+    return new Promise(function(resolve, reject) {
+        process.stdout.write('Creating \'recipe\' table... ');
+        var sql = 'CREATE TABLE IF NOT EXISTS recipe (' +
+            'Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, ' +
+            'Name varchar(255) NOT NULL);';
+    
+        con.query(sql, function(err, result) {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
+    });
+}
+
+function createRecipeIngredientTable(con) {
+    return new Promise(function(resolve, reject) {
+        process.stdout.write('Creating \'recipeIngredient\' table... ');
+        var sql = 'CREATE TABLE IF NOT EXISTS recipeIngredient (' +
+            'Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, ' +
+            'RecipeId int NOT NULL, ' +
+            'IngredientId int NOT NULL,' +
+            'CONSTRAINT `fk__recipe_id`' +
+                'FOREIGN KEY (RecipeId) REFERENCES recipe (id)' +
+                'ON DELETE CASCADE,' +
+            'CONSTRAINT `fk_recipe_ingredient_id`' + 
+                'FOREIGN KEY (IngredientId) REFERENCES ingredient (id)' + 
                 'ON DELETE CASCADE);';
     
         con.query(sql, function(err, result) {

@@ -6,6 +6,8 @@ connect()
     .then(dropUserTable)
     .then(dropIngredientIssueTable)
     .then(dropIngredientAlternativeTable)
+    .then(dropRecipeIngredientTable)
+    .then(dropRecipeTable)
     .then(dropIngredientTable)
     .then(dropIssueTable)
     .then(disconnect);
@@ -79,6 +81,32 @@ function dropIssueTable(con) {
     return new Promise(function(resolve, reject) {
         process.stdout.write('Dropping \'issue\' table... ');
         var sql = 'DROP TABLE issue;';
+
+        con.query(sql, function(err, result) {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
+    });
+}
+
+function dropRecipeTable(con) {
+    return new Promise(function(resolve, reject) {
+        process.stdout.write('Dropping \'recipe\' table... ');
+        var sql = 'DROP TABLE recipe;';
+
+        con.query(sql, function(err, result) {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
+    });
+}
+
+function dropRecipeIngredientTable(con) {
+    return new Promise(function(resolve, reject) {
+        process.stdout.write('Dropping \'recipeIngredient\' table... ');
+        var sql = 'DROP TABLE recipeIngredient;';
 
         con.query(sql, function(err, result) {
             if (err) OnSqlError(con, err);
