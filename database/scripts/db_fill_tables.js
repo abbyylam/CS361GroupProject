@@ -27,7 +27,7 @@ function connect()
 
 function fillIngredientTable(con) {
     return new Promise(function (resolve, reject) {
-        process.stdout.write('Filling \'ingredient\' table... \n');
+        process.stdout.write('Filling \'ingredient\' table... ');
         let sql = `INSERT INTO ingredient(Name,HasIssue) VALUES ? `;
 
         con.query(sql, [ingredients.ingredients], function (err, result)
@@ -41,7 +41,7 @@ function fillIngredientTable(con) {
 
 function fillIssueTable(con) {
     return new Promise(function (resolve, reject) {
-        process.stdout.write('Filling \'issue\' table... \n');
+        process.stdout.write('Filling \'issue\' table... ');
         sql = `INSERT INTO issue(Name,Description, EvidenceUrl) VALUES ? `;
 
         con.query(sql, [issues.issues], function (err, result)
@@ -55,7 +55,7 @@ function fillIssueTable(con) {
 
 function fillRecipeTable(con) {
     return new Promise(function (resolve, reject) {
-        process.stdout.write('Filling \'recipe\' table... \n');
+        process.stdout.write('Filling \'recipe\' table... ');
         sql = `INSERT INTO recipe(Name) VALUES ? `;
 
         con.query(sql, [recipes.recipes], function (err, result)
