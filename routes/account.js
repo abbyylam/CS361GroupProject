@@ -65,7 +65,10 @@ module.exports = function(pool) {
                 'SELECT Id, Password, SessionId FROM user WHERE Email = ?;', 
                 [email], 
                 (error, result) => {
-                    if (error) return reject(error)
+                    if (error) {
+                        console.log(error);
+                        return reject('An error occurred');
+                    }
 
                     resolve({ account: result[0] })
             })
@@ -103,7 +106,10 @@ module.exports = function(pool) {
                         'UPDATE user SET SessionId = ? WHERE Id = ?;',
                         [generatedId, id],
                         (error, result) => {
-                            if (error) return reject(error)
+                            if (error) {
+                                console.log(error);
+                                return reject('An error occurred');
+                            }
 
                             resolve()
                         }
@@ -123,7 +129,7 @@ module.exports = function(pool) {
         .catch(err => {
             res.status(500).json({
                 'success': false,
-                'message': err.toString().slice(7)
+                'message': err
             })
         })
     }
