@@ -2,6 +2,7 @@ module.exports.ingredients = [
     ['butter', true],
     ['salt', false],
     ['water', true],
+    ['yeast', false],
     ['olive oil', false],
     ['chicken', true],
     ['all purpose flour', false],
@@ -90,5 +91,6 @@ module.exports.ingredients = [
     ['barbecue sauce', false],
     ['coleslaw', false],
     ['grass-fed beef', true],
+    ['tomato sauce', false]
 
 ];   

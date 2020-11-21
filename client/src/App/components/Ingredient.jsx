@@ -7,7 +7,7 @@ class Ingredient extends Component {
         super(props);
         this.state = {
             ingredient: this.props.ingredient,
-            hasIssue: this.props.ingredient.hasIssue
+            hasIssue: this.props.ingredient.HasIssue
         }
         this.setIssueIngredient = this.setIssueIngredient.bind(this);
     }
@@ -19,15 +19,18 @@ class Ingredient extends Component {
     }
 
     render() {
+        if (this.state.hasIssue) {
+            var issueIndicator = <div className="Issue mt-2">
+                                    <FontAwesomeIcon icon={faExclamationCircle} />&nbsp;
+                                    <a href="" onClick={this.setIssueIngredient}>See possible issue with this ingredient</a>
+                                </div>;
+        }
         return (
             <div className="Ingredient col-sm-6">
                 <div className="card mb-3">
                     <div className="card-body">
-                        <span className="name">{this.state.ingredient.name}</span>
-                        {this.state.hasIssue && <div className="Issue mt-2">
-                            <FontAwesomeIcon icon={faExclamationCircle} />&nbsp;
-                            <a href="" onClick={this.setIssueIngredient}>See possible issue with this ingredient</a>
-                        </div>}
+                        <span className="capitalize">{this.state.ingredient.Name}</span>
+                        {issueIndicator}
                     </div>
                 </div>
             </div>

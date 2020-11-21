@@ -1,14 +1,18 @@
 var mysql = require('mysql');
-var dbConfig = require('../db_config.js')
+var dbConfig = require('../db_config.js');
 var OnSqlError = require('../db_utils.js').OnSQLError;
-var ingredients = require('./ingredientData.js')
+var ingredients = require('./ingredientData.js');
 var issues = require('./issueData.js');
 var recipes = require('./recipeData.js');
+var recipeIngredients = require('./recipeIngredientData.js');
+var ingredientIssues = require('./ingredientIssueData.js');
 
 connect()
     .then(fillIngredientTable)
     .then(fillIssueTable)
     .then(fillRecipeTable)
+    .then(fillRecipeIngredientTable)
+    .then(fillIngredientIssueTable)
     .then(disconnect);
 
 function connect()
@@ -59,6 +63,34 @@ function fillRecipeTable(con) {
         sql = `INSERT INTO recipe(Name) VALUES ? `;
 
         con.query(sql, [recipes.recipes], function (err, result)
+        {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
+    });
+}
+
+function fillRecipeIngredientTable(con) {
+    return new Promise(function (resolve, reject) {
+        process.stdout.write('Filling \'recipeIngredient\' table... ');
+        sql = `INSERT INTO recipeIngredient(RecipeId,IngredientId) VALUES ? `;
+
+        con.query(sql, [recipeIngredients.recipeIngredients], function (err, result)
+        {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
+    });
+}
+
+function fillIngredientIssueTable(con) {
+    return new Promise(function (resolve, reject) {
+        process.stdout.write('Filling \'ingredientIssue\' table... ');
+        sql = `INSERT INTO ingredientIssue(IngredientId,IssueId) VALUES ? `;
+
+        con.query(sql, [ingredientIssues.ingredientIssues], function (err, result)
         {
             if (err) OnSqlError(con, err);
             process.stdout.write('Success\n');
