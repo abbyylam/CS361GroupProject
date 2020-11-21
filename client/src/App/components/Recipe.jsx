@@ -8,6 +8,8 @@ class Recipe extends Component {
         super(props);
         this.id = this.props.recipeId;
         this.state = {
+            success: null,
+            message: '',
             recipe: null,
             modalOpen: false,
             issueIngredient: null
@@ -24,7 +26,17 @@ class Recipe extends Component {
             return res.json();
         })
         .then(recipe => {
-            this.setState({ recipe: recipe.data })
+            if (recipe.success) {
+                this.setState({ 
+                    success: recipe.success,
+                    recipe: recipe.data 
+                });
+            } else {
+                this.setState({
+                    success: recipe.success,
+                    message: recipe.message
+                });
+            }
         });
     };
 
@@ -50,10 +62,14 @@ class Recipe extends Component {
 
 
     render() {
-        if (this.state.recipe === null) {
+        if (this.state.success && !this.state.recipe) {
             return (
                 <p>Recipe loading...</p>
-            )
+            );
+        } else if (!this.state.success) {
+            return (
+                <p>{this.state.message}</p>
+            );
         } else {
             return (
                 <div className="Recipe container">
@@ -66,7 +82,6 @@ class Recipe extends Component {
                     
                     {this.state.issueIngredient && this.state.modalOpen && this.renderModal()}
                 </div>
-                
             )
         }
     }
