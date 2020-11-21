@@ -76,7 +76,7 @@ module.exports = function(pool) {
         })
         // Verify password
         .then(({ account }) => {
-            const hashedPassword = hash(req.body.password) 
+            const hashedPassword = hash(req.body.password)
 
             if (account && account.Password === hashedPassword) {
                 return { 
@@ -134,7 +134,7 @@ module.exports = function(pool) {
         .catch(err => {
             res.status(500).json({
                 'success': false,
-                'message': err
+                'message': err.toString().slice(7)
             })
         })
     }
