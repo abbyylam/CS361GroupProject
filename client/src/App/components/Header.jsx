@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import LoginSignup from '../pages/LoginSignup';
 import ModalButton from '../components/ModalButton'
+import { Dropdown } from 'react-bootstrap'
+
+import { LogoutAccount } from '../requests/Api'
 
 function Header(props) {
     const [searchValue, setSearchValue] = useState("");
@@ -17,6 +20,20 @@ function Header(props) {
 
     function closeModal() {
         setIsOpen(false)
+    }
+
+    function onClickLogout() {
+        LogoutAccount()
+        .then(res => res.json())
+        .then(result => {
+            if (result.success) {
+                alert(result.message)
+                document.location.reload()
+            } else {
+                alert(result.message)
+                document.location.reload()
+            }
+        })
     }
 
     return(
@@ -51,9 +68,23 @@ function Header(props) {
                             <li className={`nav-item ${
                                 props.location.pathname === "/" ? "active" : ""
                             }`}>
-                                <ModalButton 
-                                    openModal={openModal}
-                                />
+                                {props.hasSessionId ? 
+                                        <Dropdown>
+                                            <Dropdown.Toggle variant="outline-light" >
+                                                {props.username}
+                                            </Dropdown.Toggle>
+
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item 
+                                                    onClick={onClickLogout}
+                                                >
+                                                    Logout
+                                                </Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    :
+                                        <ModalButton openModal={openModal}/>
+                                }
                             </li>
                         </ul>
                     </div>

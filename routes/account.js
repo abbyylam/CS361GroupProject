@@ -52,10 +52,11 @@ module.exports = function(pool) {
     module.login = function(req, res) {
         const email = req.body.email
 
-        const setSessionCookie = ({ sessionId, res }) => {
-            res.cookie('sessionId', sessionId, {
+        const setSessionCookie = ({ sessionString, res }) => {
+            res.cookie('sessionId', sessionString, {
                 expire: Date.now() + 3600000, // 1 hour
-                httpOnly: true
+                httpOnly: false,
+                encode: String
             })
         }
 
@@ -79,7 +80,7 @@ module.exports = function(pool) {
                     sessionId: account.SessionId
                 }
             } else {
-                const error = new Error('Incorrect username/password')
+                const error = new Error('Incorrect email address or password')
 
                 throw error
             }
@@ -116,11 +117,48 @@ module.exports = function(pool) {
         .then(() => {
             return res.status(200).json({
                 'success': true,
-                'message': 'Login Successful!'
+                'message': 'Login successful!'
             });
         })
         .catch(err => {
-            console.log(err)
+            res.status(500).json({
+                'success': false,
+                'message': err.toString().slice(7)
+            })
+        })
+    }
+
+    module.logout = function(req, res) {
+        let email
+
+        if (req.cookies.sessionId) {
+            email = req.cookies.sessionId.split('|')[0]
+        } 
+
+        return new Promise((resolve, reject) => {
+            pool.query(
+                'UPDATE user SET SessionId = ? WHERE email = ?;',
+                [null, email],
+                (error, result) => {
+                    if (error) {
+                        const err = new Error('Logout failed') 
+                        
+                        throw err
+                    }
+
+                    resolve()
+                }
+            )
+        })
+        .then(() => {
+            res.clearCookie('sessionId')
+
+            return res.status(200).json({
+                'success': true,
+                'message': 'Logout successful!'
+            })
+        })
+        .catch(err => {
             res.status(500).json({
                 'success': false,
                 'message': err.toString().slice(7)

@@ -51,7 +51,18 @@ function LoginAccount(email, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
+        credentials: 'include'
+    }
+
+    return(fetch(url, requestOptions))
+}
+
+function LogoutAccount() {
+    let url = `${baseUrl}/account/logout`
+
+    const requestOptions = {
+        credentials: 'include'
     }
 
     return(fetch(url, requestOptions))
@@ -61,5 +72,6 @@ module.exports = {
     RecipeSearch: RecipeSearch,
     FetchRecipe: FetchRecipe,
     CreateAccount: CreateAccount,
-    LoginAccount: LoginAccount
+    LoginAccount: LoginAccount,
+    LogoutAccount: LogoutAccount
 };

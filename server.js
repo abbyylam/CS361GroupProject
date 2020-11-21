@@ -23,6 +23,7 @@ app.use(cookieParser())
 
 app.post('/api/account', account.create);
 app.post('/api/account/login', account.login)
+app.get('/api/account/logout', account.logout)
 
 app.get('/api/search', searchEngine.search);
 app.get('/api/recipe', recipeListing.recipe);
