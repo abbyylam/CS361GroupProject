@@ -27,8 +27,9 @@ app.get('/api/account/logout', account.logout)
 
 app.get('/api/search', searchEngine.search);
 app.get('/api/recipe', recipeListing.recipe);
-app.get('/api/ingredient', recipeListing.ingredient);
+app.get('/api/ingredient', ingredients.ingredient);
 app.get('/api/ingredients', ingredients.ingredients);
+app.get('/api/ingredientIssue', ingredients.ingredientIssue);
 app.get('*', site.index);
 
 const port = process.env.PORT || 5000;

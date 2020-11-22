@@ -8,6 +8,8 @@ class Recipe extends Component {
         super(props);
         this.id = this.props.recipeId;
         this.state = {
+            success: null,
+            message: '',
             recipe: null,
             modalOpen: false,
             issueIngredient: null
@@ -24,16 +26,34 @@ class Recipe extends Component {
             return res.json();
         })
         .then(recipe => {
-            this.setState({ recipe })
+            if (recipe.success) {
+                this.setState({ 
+                    success: recipe.success,
+                    recipe: recipe.data 
+                });
+            } else {
+                this.setState({
+                    success: recipe.success,
+                    message: recipe.message
+                });
+            }
         });
     };
+
+    renderModal = () => {
+        const {modalOpen, issueIngredient} = this.state;
+
+        return(
+            <EthicalAlternative modalOpen={this.state.modalOpen} issueIngredient={this.state.issueIngredient} onClose={this.closeModal} />
+        )
+    }
 
     openModal() {
         this.setState({modalOpen: true});
     };
 
-    closeModal() {
-        this.setState({modalOpen: false});
+    closeModal = (ingredient) => {
+        this.setState({modalOpen: false, issueIngredient: ingredient});
     };
 
     setIssueIngredient(ingredient) {
@@ -42,23 +62,26 @@ class Recipe extends Component {
 
 
     render() {
-        if (this.state.recipe === null) {
+        if (this.state.success && !this.state.recipe) {
             return (
                 <p>Recipe loading...</p>
-            )
+            );
+        } else if (!this.state.success) {
+            return (
+                <p>{this.state.message}</p>
+            );
         } else {
             return (
                 <div className="Recipe container">
-                    <h1 className="my-5">{this.state.recipe[0].name}</h1>
+                    <h1 className="my-5 capitalize">{this.state.recipe.name}</h1>
                     <div className="d-inline-flex flex-row flex-wrap">
-                        {this.state.recipe[0].ingredients.map((ingredient, index) => {
+                        {this.state.recipe.ingredients.map((ingredient, index) => {
                             return <Ingredient ingredient={ingredient} key={index} openModal={this.openModal} setIngredient={this.setIssueIngredient} />
                         })}
                     </div>
                     
-                    {this.state.issueIngredient && <EthicalAlternative modalOpen={this.state.modalOpen} issueIngredient={this.state.issueIngredient} onClose={this.closeModal} />}
+                    {this.state.issueIngredient && this.state.modalOpen && this.renderModal()}
                 </div>
-                
             )
         }
     }
