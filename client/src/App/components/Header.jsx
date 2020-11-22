@@ -75,9 +75,7 @@ function Header(props) {
                                             </Dropdown.Toggle>
 
                                             <Dropdown.Menu>
-                                                <Dropdown.Item 
-                                                    onClick={onClickLogout}
-                                                >
+                                                <Dropdown.Item onClick={onClickLogout}>
                                                     Logout
                                                 </Dropdown.Item>
                                             </Dropdown.Menu>

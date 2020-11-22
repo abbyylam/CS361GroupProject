@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Header, Footer } from './components';
 import { Home, RecipeBook, CreateRecipe, Search, RecipeListing } from './pages';
@@ -8,9 +8,6 @@ import Cookies from 'js-cookie'
 import './App.css';
 
 function App() {
-    // const [hasSessionId, setSessionId] = useState(Cookies.get('sessionId'))
-    // const [username, setUsername] = useState(hasSessionId ? Cookies.get('sessionId').split('|')[0] : '')
-
     const hasSessionId = Cookies.get('sessionId')
     const username = hasSessionId ? Cookies.get('sessionId').split('|')[0] : ''
 

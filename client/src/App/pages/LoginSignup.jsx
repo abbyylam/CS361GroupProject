@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Modal from 'react-modal';
 
 import Signup from '../components/Signup'
@@ -28,9 +28,7 @@ const LoginSignup = (props) => (
         <Container>
             <Row>
                 <Col style={{borderRight: "1px solid grey"}}>
-                    <Login 
-                        closeModal={props.closeModal}
-                    />
+                    <Login closeModal={props.closeModal}/>
                 </Col>
                 <Col>
                     <Signup closeModal={props.closeModal}/>

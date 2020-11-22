@@ -1,5 +1,6 @@
-const { hash } = require('./helper')
-const { v4: uuid } = require('uuid')
+const { hash } = require('./helper/hash')
+
+const Session = require('./helper/session')
 
 module.exports = function(pool) {
     var module = {};
@@ -75,7 +76,7 @@ module.exports = function(pool) {
         })
         // Verify password
         .then(({ account }) => {
-            const hashedPassword = hash(req.body.password) 
+            const hashedPassword = hash(req.body.password)
 
             if (account && account.Password === hashedPassword) {
                 return { 
@@ -94,17 +95,21 @@ module.exports = function(pool) {
 
             // If session is already existed 
             if (sessionId) {
-                sessionString = `${email}|${sessionId}`
+                sessionString = Session.generateSessionId({ email, sessionId }) 
+
+                console.log(sessionString)
 
                 setSessionCookie({ sessionString, res })
             } else {
-                const generatedId = uuid()
-                sessionString = `${email}|${generatedId}`
+                let session = new Session({ email })
+                const newSessionId = session.getId()
+
+                sessionString = Session.generateSessionId({ email, sessionId: newSessionId }) 
 
                 return new Promise((resolve, reject) => {
                     pool.query(
                         'UPDATE user SET SessionId = ? WHERE Id = ?;',
-                        [generatedId, id],
+                        [newSessionId, id],
                         (error, result) => {
                             if (error) {
                                 console.log(error);
@@ -129,7 +134,7 @@ module.exports = function(pool) {
         .catch(err => {
             res.status(500).json({
                 'success': false,
-                'message': err
+                'message': err.toString().slice(7)
             })
         })
     }
