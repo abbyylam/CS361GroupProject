@@ -5,6 +5,7 @@ import { tasks } from "../components/createRecipeIngListData"
 import "../components/createRecipe.css";
 import  ManageApp  from "../components/savedForm"
 import { withRouter } from 'react-router-dom';
+import CRModal from "../components/CRModal.js"
 
 const dataSource = new ArrayStore({
   key: "text",
@@ -82,6 +83,7 @@ class CreateRecipe extends React.Component {
   render() {
     return (
       <React.Fragment>
+         <CRModal/>
         <div className="parent" style={{backgroundColor: "#282c34", color: "white"}}>
           <div id="wrapper" className="center wide"style={{color: "white"}}>
             <p style={{ textAlign: "center" }}> INGREDIENT LIST! </p>
