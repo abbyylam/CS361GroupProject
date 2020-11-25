@@ -10,7 +10,7 @@ const pool = mysql.createPool(dbconfig);
 
 /* Route Paths */
 const site = require('./routes/site');
-const searchEngine = require('./routes/searchEngine');
+const searchEngine = require('./routes/searchEngine')(pool);
 const recipeListing = require('./routes/recipeListing')(pool);
 const ingredients = require('./routes/ingredients')(pool)
 const account = require('./routes/account')(pool);
