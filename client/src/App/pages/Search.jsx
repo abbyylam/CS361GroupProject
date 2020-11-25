@@ -69,7 +69,6 @@ function Search({ history }) {
                 FetchRecipe(searchResult.id)
                     .then(res => res.json())
                     .then(fetchResult => {
-                        console.log(fetchResult);
                         if (fetchResult.success) {
                             searchResult.name = fetchResult.data.name;
                             searchResult.ingredients = fetchResult.data.ingredients;
@@ -77,7 +76,6 @@ function Search({ history }) {
                             searchResult.name = null;
                             searchResult.ingredients = null;
                         }
-                        console.log(searchResult);
                         recipesLoaded++;
                         if (recipesLoaded === totalRecipes) {
                             console.log(list);
