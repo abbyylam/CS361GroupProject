@@ -63,10 +63,10 @@ function Search({ history }) {
 
     function hydrateSearchResultViewList(list) {
         return new Promise(function(resolve, reject) {
-            var totalRecipes = list.length;
-            var recipesLoaded = 0;
+            var promises = [];
+
             list.forEach(searchResult => {
-                FetchRecipe(searchResult.id)
+                var promise = FetchRecipe(searchResult.id)
                     .then(res => res.json())
                     .then(fetchResult => {
                         if (fetchResult.success) {
@@ -76,14 +76,16 @@ function Search({ history }) {
                             searchResult.name = null;
                             searchResult.ingredients = null;
                         }
-                        recipesLoaded++;
-                        if (recipesLoaded === totalRecipes) {
-                            console.log(list);
-                            resolve(list);
-                        }
-                    })
-            })
-        });
+                    });
+                promises.push(promise);
+            });
+
+            Promise.all(promises)
+                .then(() => {
+                    console.log(list);
+                    resolve(list);
+                    });
+                });
     }
 
     const createNoResultItem = () => {
@@ -96,7 +98,7 @@ function Search({ history }) {
 
     const createResultItem = (searchResultViewItem) => {
         return (searchResultViewItem.name)
-            ? (<Link to={"/recipe/" + searchResultViewItem.id}>
+            ? (<Link to={"/recipe/" + searchResultViewItem.id} key={searchResultViewItem.id}>
                     <div className="column" style={searchResultStyle}>
                         <h5 className="text-left mb-3">{searchResultViewItem.name}</h5>
                         <h6 className="text-left">Ingredients:</h6>
@@ -110,7 +112,7 @@ function Search({ history }) {
                         }, 0)}</p>
                     </div>
                 </Link>)
-            : <React.Fragment/>;
+            : <React.Fragment key={searchResultViewItem.id}/>;
     }
 
     // Search menu
