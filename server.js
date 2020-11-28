@@ -11,7 +11,7 @@ const pool = mysql.createPool(dbconfig);
 /* Route Paths */
 const site = require('./routes/site');
 const searchEngine = require('./routes/searchEngine')(pool);
-const recipeListing = require('./routes/recipeListing')(pool);
+const recipeListing = require('./routes/recipe')(pool);
 const ingredients = require('./routes/ingredients')(pool)
 const account = require('./routes/account')(pool);
 
@@ -21,15 +21,16 @@ app.use(express.static(path.join(__dirname, 'client')));
 app.use(bodyParser.json());
 app.use(cookieParser())
 
+/* API Paths */
 app.post('/api/account', account.create);
 app.post('/api/account/login', account.login)
 app.get('/api/account/logout', account.logout)
-
 app.get('/api/search', searchEngine.search);
 app.get('/api/recipe', recipeListing.recipe);
 app.get('/api/ingredient', ingredients.ingredient);
 app.get('/api/ingredients', ingredients.ingredients);
 app.get('/api/ingredientIssue', ingredients.ingredientIssue);
+app.get('/api/ingredientAlternatives', ingredients.ingredientAlternatives);
 app.get('*', site.index);
 
 const port = process.env.PORT || 5000;

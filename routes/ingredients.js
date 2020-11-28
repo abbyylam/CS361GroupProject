@@ -95,5 +95,37 @@ module.exports = function (pool) {
         })
     }
 
+    module.ingredientAlternatives = function (req, res) {
+        let ingredientId = req.query.ingredientId;
+
+        let sql = 'SELECT ingredient.Name FROM ingredient ' + 
+                    'JOIN ingredientAlternative ON ingredient.id = ingredientAlternative.IngredientId ' +
+                    'WHERE ingredient.id = ?';
+        let value = [ingredientId];
+
+        return pool.query(sql, value, function(err, result) {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({
+                    'success': false,
+                    'message': 'An error occurred'
+                });
+            }
+
+            if (result.length === 0) {
+                return res.status(404).json({
+                    'success': false,
+                    'message': 'Alternative ingredients not found'
+                });
+            } else {
+                return res.status(200).json({
+                    'success': true,
+                    'message': 'Alternative ingredients found',
+                    'data': result[0]
+                });
+            }
+        })
+    }
+
     return module;
 }
