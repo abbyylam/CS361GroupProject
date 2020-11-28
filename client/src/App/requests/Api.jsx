@@ -31,6 +31,12 @@ function FetchIngredientIssue(ingredientId) {
     return(fetch(url));
 }
 
+function FetchIngredientAlternatives(ingredientId) {
+    const queryString = `ingredientId=${encodeURIComponent(ingredientId)}`;
+    let url = `${baseUrl}/ingredientAlternatives?${queryString}`;
+    return(fetch(url));
+}
+
 function CreateAccount(email, password) {
     let url = `${baseUrl}/account`;
     let data = {
@@ -82,5 +88,6 @@ module.exports = {
     LogoutAccount: LogoutAccount,
     FetchIngredient: FetchIngredient,
     FetchIngredients: FetchIngredients,
-    FetchIngredientIssue: FetchIngredientIssue
+    FetchIngredientIssue: FetchIngredientIssue,
+    FetchIngredientAlternatives: FetchIngredientAlternatives
 };

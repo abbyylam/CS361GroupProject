@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import {FetchIngredientIssue} from '../requests/Api';
+import {FetchIngredientIssue, FetchIngredientAlternatives} from '../requests/Api';
+import {Ingredient} from './Ingredient';
 
 class EthicalAlternative extends Component {
     constructor(props) {
@@ -21,6 +22,14 @@ class EthicalAlternative extends Component {
         })
         .then(ethicalIssue => {
             this.setState({ ethicalIssue: ethicalIssue.data });
+        });
+
+        FetchIngredientAlternatives(ingredientId)
+        .then(res => {
+            return res.json();
+        })
+        .then(altIngredients => {
+            this.setState({ altIngredients: altIngredients.data });
         });
     }
 
