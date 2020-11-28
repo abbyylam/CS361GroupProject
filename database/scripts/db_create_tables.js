@@ -11,6 +11,7 @@ connect()
     .then(createRecipeTable)
     .then(createRecipeIngredientTable)
     .then(createRecipeBookTable)
+    .then(createRecipeBookRecipeTable)
     .then(disconnect);
 
 function connect() {
@@ -166,6 +167,28 @@ function createRecipeBookTable(con) {
             'UserId int NOT NULL, ' +
             'CONSTRAINT `fk_recipe_user_id`' + 
                 'FOREIGN KEY (UserId) REFERENCES user (id)' + 
+                'ON DELETE CASCADE);';
+    
+        con.query(sql, function(err, result) {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
+    });
+}
+
+function createRecipeBookRecipeTable(con) {
+    return new Promise(function(resolve, reject) {
+        process.stdout.write('Creating \'recipeBookRecipe\' table... ');
+        var sql = 'CREATE TABLE IF NOT EXISTS recipeBookRecipe (' +
+            'Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, ' +
+            'BookId int NOT NULL, ' +
+            'RecipeId int NOT NULL, ' +
+            'CONSTRAINT `fk__book_id`' +
+                'FOREIGN KEY (BookId) REFERENCES recipeBook (id)' +
+                'ON DELETE CASCADE,' +
+            'CONSTRAINT `fk_recipe_id`' + 
+                'FOREIGN KEY (RecipeId) REFERENCES recipe (id)' + 
                 'ON DELETE CASCADE);';
     
         con.query(sql, function(err, result) {
