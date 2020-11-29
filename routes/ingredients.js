@@ -98,7 +98,7 @@ module.exports = function (pool) {
     module.ingredientAlternatives = function (req, res) {
         let ingredientId = req.query.ingredientId;
 
-        let sql = 'SELECT i.Name AS issueIngredient, a.Name AS alternativeIngredient FROM ingredient i ' + 
+        let sql = 'SELECT a.id AS id, a.Name AS Name, a.HasIssue AS HasIssue FROM ingredient i ' + 
                     'JOIN ingredientAlternative ON i.id = ingredientAlternative.IngredientId ' +
                     'JOIN ingredient a ON ingredientAlternative.AltIngredientId = a.id ' +
                     'WHERE i.id = ?';
