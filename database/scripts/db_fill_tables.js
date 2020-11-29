@@ -6,6 +6,7 @@ var issues = require('./issueData.js');
 var recipes = require('./recipeData.js');
 var recipeIngredients = require('./recipeIngredientData.js');
 var ingredientIssues = require('./ingredientIssueData.js');
+var ingredientAlternatives = require('./ingredientAlternativeData');
 
 connect()
     .then(fillIngredientTable)
@@ -13,6 +14,7 @@ connect()
     .then(fillRecipeTable)
     .then(fillRecipeIngredientTable)
     .then(fillIngredientIssueTable)
+    .then(fillIngredientAlternativeTable)
     .then(disconnect);
 
 function connect()
@@ -91,6 +93,20 @@ function fillIngredientIssueTable(con) {
         sql = `INSERT INTO ingredientIssue(IngredientId,IssueId) VALUES ? `;
 
         con.query(sql, [ingredientIssues.ingredientIssues], function (err, result)
+        {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
+    });
+}
+
+function fillIngredientAlternativeTable(con) {
+    return new Promise(function (resolve, reject) {
+        process.stdout.write('Filling \'ingredientAlternative\' table... ');
+        sql = `INSERT INTO ingredientAlternative(IngredientId,AltIngredientId) VALUES ? `;
+
+        con.query(sql, [ingredientAlternatives.ingredientAlternatives], function (err, result)
         {
             if (err) OnSqlError(con, err);
             process.stdout.write('Success\n');

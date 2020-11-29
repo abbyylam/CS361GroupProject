@@ -91,6 +91,7 @@ module.exports.ingredients = [
     ['barbecue sauce', false],
     ['coleslaw', false],
     ['grass-fed beef', true],
-    ['tomato sauce', false]
-
+    ['tomato sauce', false],
+    ['pasture-raised mozzarella', false],
+    ['vegan mozzarella', false]
 ];   

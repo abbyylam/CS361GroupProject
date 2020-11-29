@@ -25,12 +25,17 @@ class Ingredient extends Component {
                                     <a href="" onClick={this.setIssueIngredient}>See possible issue with this ingredient</a>
                                 </div>;
         }
+
+        if (this.props.asAlternative) {
+            var selectButton = <button className="btn btn-secondary float-right">Select</button>;
+        }
         return (
             <div className="Ingredient col-sm-6">
                 <div className="card mb-3">
                     <div className="card-body">
                         <span className="capitalize">{this.state.ingredient.Name}</span>
                         {issueIndicator}
+                        {selectButton}
                     </div>
                 </div>
             </div>
