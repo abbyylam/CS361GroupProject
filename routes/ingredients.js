@@ -98,9 +98,10 @@ module.exports = function (pool) {
     module.ingredientAlternatives = function (req, res) {
         let ingredientId = req.query.ingredientId;
 
-        let sql = 'SELECT ingredient.Name FROM ingredient ' + 
-                    'JOIN ingredientAlternative ON ingredient.id = ingredientAlternative.IngredientId ' +
-                    'WHERE ingredient.id = ?';
+        let sql = 'SELECT i.Name AS issueIngredient, a.Name AS alternativeIngredient FROM ingredient i ' + 
+                    'JOIN ingredientAlternative ON i.id = ingredientAlternative.IngredientId ' +
+                    'JOIN ingredient a ON ingredientAlternative.AltIngredientId = a.id ' +
+                    'WHERE i.id = ?';
         let value = [ingredientId];
 
         return pool.query(sql, value, function(err, result) {
@@ -121,7 +122,7 @@ module.exports = function (pool) {
                 return res.status(200).json({
                     'success': true,
                     'message': 'Alternative ingredients found',
-                    'data': result[0]
+                    'data': result
                 });
             }
         })

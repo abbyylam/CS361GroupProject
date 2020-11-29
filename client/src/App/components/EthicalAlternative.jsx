@@ -9,7 +9,7 @@ class EthicalAlternative extends Component {
         this.state = {
             issueIngredient: this.props.issueIngredient,
             ethicalIssue: null,
-            altIngredients: this.props.issueIngredient.altIngredients
+            altIngredients: null
         }
     }
 
@@ -38,8 +38,8 @@ class EthicalAlternative extends Component {
 
         if (this.state.ethicalIssue == null) {
             modal = <Modal.Body>
-                            Loading...
-                        </Modal.Body>
+                        Loading...
+                    </Modal.Body>
         } else {
             let ingredient;
 
