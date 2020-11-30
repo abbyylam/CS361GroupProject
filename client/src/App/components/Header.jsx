@@ -54,9 +54,13 @@ function Header(props) {
                             <li className={`nav-item ${
                                 props.location.pathname === "/" ? "active" : ""
                             }`}>
-                                <Link className="nav-link" to="/recipe-book">
-                                    My Recipe Book
-                                </Link>
+                                {props.hasSessionId ? 
+                                    <Link className="nav-link" to="/recipe-book">
+                                        My Recipe Book
+                                    </Link>
+                                    :
+                                    <ModalButton openModal={openModal} isModal={true}/>
+                                }
                             </li>
                             <li className={`nav-item ${
                                 props.location.pathname === "/" ? "active" : ""
@@ -75,7 +79,7 @@ function Header(props) {
                                             </Dropdown.Toggle>
 
                                             <Dropdown.Menu>
-                                                <Dropdown.Item onClick={onClickLogout}>
+                                                <Dropdown.Item onClick={onClickLogout} >
                                                     Logout
                                                 </Dropdown.Item>
                                             </Dropdown.Menu>
