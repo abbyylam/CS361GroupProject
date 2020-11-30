@@ -23,4 +23,5 @@ module.exports.ingredientAlternatives = [
     ['72', '115'],
     ['73', '116'],
     ['74', '117'],
+    ['118', '119']
 ]

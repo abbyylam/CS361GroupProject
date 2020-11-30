@@ -3,5 +3,6 @@ module.exports.recipes = [
     ['Pepperoni Pizza'],
     ['Cheese Pizza'],
     ['Mushroom Pizza'],
-    ['Supreme Pizza']
+    ['Supreme Pizza'],
+    ['Chicken Noodle Soup']
 ];   

@@ -116,4 +116,6 @@ module.exports.ingredients = [
     ['organic pepperoni', false],
     ['organic salami', false],
     ['organic hot dogs', false],
+    ['egg noodle', true],
+    ['organic egg noodle', false]
 ];   
