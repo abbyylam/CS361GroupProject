@@ -13,7 +13,7 @@ class ManageApp extends Component {
     this.state = {
       showForm: false,
       recipeIngredients: [],
-      location: false
+      sharable: false
     };
 
     this.onClick = this.onClick.bind(this);
@@ -41,7 +41,7 @@ class ManageApp extends Component {
   };
 
   sharedOnClick(e) {
-    this.setState({ location: !e.target.checked });
+    this.setState({ sharable: !e.target.checked });
   }
 
   renderForm() {
@@ -58,8 +58,7 @@ class ManageApp extends Component {
           id="shared"
           type="checkbox"
           onClick={this.sharedOnClick}
-          value={!this.state.location}
-          onChange={console.log(this.state.location)}
+          value={!this.state.sharable}
         ></input>
         <label for="shared">Share recipe with other users</label>
         </form>
