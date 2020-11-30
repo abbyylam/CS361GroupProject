@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 module.exports = function (pool) {
 
     var module = {};
@@ -74,6 +72,47 @@ module.exports = function (pool) {
                 });
             })
         }
+    }
+
+    module.recipes = function(req, res) {
+        let email = req.cookies.sessionId.split('|')[0]
+
+        return new Promise((resolve, reject) => {
+            pool.query(
+                `SELECT recipe.Name as name FROM user 
+                INNER JOIN recipeBook ON user.Id = recipeBook.UserId 
+                INNER JOIN recipeBookRecipe ON recipeBook.Id = recipeBookRecipe.BookId 
+                INNER JOIN recipe ON recipeBookRecipe.RecipeId = recipe.Id 
+                WHERE user.email=?`,
+                [email],
+                (error, result) => {
+                    if (error) {
+                        const err = new Error('Fetching Recipes Error')
+                        
+                        throw err
+                    }
+
+                    if (result.length > 0) {
+                        return res.status(200).json({
+                            'success': true,
+                            'message': 'Recipes found',
+                            'data': result
+                        })
+                    } else {
+                        return res.status(404).json({
+                            'success': false,
+                            'message': 'Recipes not found',
+                        })
+                    }
+                }
+            )
+        })
+        .catch(err => {
+            res.status(500).json({
+                'success': false,
+                'message': err.toString().slice(7)
+            })
+        })
     }
 
     return module;
