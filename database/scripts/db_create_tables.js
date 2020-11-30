@@ -182,6 +182,7 @@ function createRecipeBookRecipeTable(con) {
         process.stdout.write('Creating \'recipeBookRecipe\' table... ');
         var sql = 'CREATE TABLE IF NOT EXISTS recipeBookRecipe (' +
             'Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, ' +
+            'Sharable boolean NOT NULL, ' +
             'BookId int NOT NULL, ' +
             'RecipeId int NOT NULL, ' +
             'CONSTRAINT `fk__book_id`' +
