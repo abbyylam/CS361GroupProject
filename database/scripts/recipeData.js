@@ -4,5 +4,7 @@ module.exports.recipes = [
     ['Cheese Pizza'],
     ['Mushroom Pizza'],
     ['Supreme Pizza'],
-    ['Chicken Noodle Soup']
+    ['Chicken Noodle Soup'],
+    ['Bacon Cheese Burger'],
+    ['Shrimp Garlic Pasta']
 ];   

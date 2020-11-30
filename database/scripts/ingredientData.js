@@ -22,7 +22,7 @@ module.exports.ingredients = [
     ['mayonnaise', false],
     ['chiles', false],
     ['almonds', false],
-    ['mushrooms', false],
+    ['mushrooms', false], // 24
     ['bacon', true],
     ['coconut', false],
     ['beets', false],
@@ -117,5 +117,19 @@ module.exports.ingredients = [
     ['organic salami', false],
     ['organic hot dogs', false],
     ['egg noodle', true],
-    ['organic egg noodle', false]
+    ['organic egg noodle', false],
+    ['seitan', false], // 120
+    ['tofu', false], // 121
+    ['tempeh', false], // 122
+    ['jackfruit', false], // 123
+    ['cauliflower', false], // 124
+    ['eggplant', false], //125,
+    ['soymilk', false], // 126
+    ['rice milk', false],// 127
+    ['mushroom broth', false], // 128
+    ['vegetable broth', false], // 129
+    ['basil pesto', false], // 130
+    ['organic sour cream', false], //131
+    ['buns', false], // 132
+    ['linguine', false]
 ];   
