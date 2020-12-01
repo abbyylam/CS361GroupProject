@@ -10,8 +10,7 @@ connect()
     .then(createIngredientAlternativeTable)
     .then(createRecipeTable)
     .then(createRecipeIngredientTable)
-    .then(createRecipeBookTable)
-    .then(createRecipeBookRecipeTable)
+    .then(createUserRecipeTable)
     .then(disconnect);
 
 function connect() {
@@ -158,37 +157,18 @@ function createRecipeIngredientTable(con) {
     });
 }
 
-function createRecipeBookTable(con) {
+function createUserRecipeTable(con) {
     return new Promise(function(resolve, reject) {
-        process.stdout.write('Creating \'recipeBook\' table... ');
-        var sql = 'CREATE TABLE IF NOT EXISTS recipeBook (' +
+        process.stdout.write('Creating \'userRecipe\' table... ');
+        var sql = 'CREATE TABLE IF NOT EXISTS userRecipe (' +
             'Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, ' +
-            'Name varchar(255) NOT NULL, ' +
+            'Shareable boolean NOT NULL, ' +
             'UserId int NOT NULL, ' +
-            'CONSTRAINT `fk_recipe_user_id`' + 
-                'FOREIGN KEY (UserId) REFERENCES user (id)' + 
-                'ON DELETE CASCADE);';
-    
-        con.query(sql, function(err, result) {
-            if (err) OnSqlError(con, err);
-            process.stdout.write('Success\n');
-            resolve(con);
-        });
-    });
-}
-
-function createRecipeBookRecipeTable(con) {
-    return new Promise(function(resolve, reject) {
-        process.stdout.write('Creating \'recipeBookRecipe\' table... ');
-        var sql = 'CREATE TABLE IF NOT EXISTS recipeBookRecipe (' +
-            'Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, ' +
-            'Sharable boolean NOT NULL, ' +
-            'BookId int NOT NULL, ' +
             'RecipeId int NOT NULL, ' +
-            'CONSTRAINT `fk__book_id`' +
-                'FOREIGN KEY (BookId) REFERENCES recipeBook (id)' +
+            'CONSTRAINT `fk__user_id_`' +
+                'FOREIGN KEY (UserId) REFERENCES user (id)' +
                 'ON DELETE CASCADE,' +
-            'CONSTRAINT `fk_recipe_id`' + 
+            'CONSTRAINT `fk_recipe_id_`' + 
                 'FOREIGN KEY (RecipeId) REFERENCES recipe (id)' + 
                 'ON DELETE CASCADE);';
     
