@@ -12,10 +12,12 @@ class ManageApp extends Component {
     // Here we initialize our components state
     this.state = {
       showForm: false,
-      recipeIngredients: []
+      recipeIngredients: [],
+      sharable: false
     };
 
     this.onClick = this.onClick.bind(this);
+    this.sharedOnClick = this.sharedOnClick.bind(this);
   }
 
   onClick() {
@@ -38,6 +40,10 @@ class ManageApp extends Component {
     // INSERT DATABASE CODE
   };
 
+  sharedOnClick(e) {
+    this.setState({ sharable: !e.target.checked });
+  }
+
   renderForm() {
     return (
       <div style={styles}>
@@ -47,6 +53,14 @@ class ManageApp extends Component {
           <input name="name" type="text" required />
 
           <input style={{width: "100px", height: "40px"}}name="done" type="submit" className="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" />
+          <br></br>
+          <input
+          id="shared"
+          type="checkbox"
+          onClick={this.sharedOnClick}
+          value={!this.state.sharable}
+        ></input>
+        <label for="shared">Share recipe with other users</label>
         </form>
       </div>
     );
@@ -60,9 +74,11 @@ class ManageApp extends Component {
       <div className="manage-app">
         
         <div onClick={this.onClick} style={{border: "2px solid"}} className="dx-button dx-button-mode-contained dx-widget dx-button-has-text" aria-label="More" tabIndex="0" role="button"><div className="dx-button-content"><span className="dx-button-text">Save Recipe</span></div></div>
+        
 
         {/* We want to show the form if the state is true */}
         {showForm && this.renderForm()}
+
       </div>
     );
   }
