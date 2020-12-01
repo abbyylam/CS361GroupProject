@@ -11,13 +11,6 @@ function App() {
     const hasSessionId = Cookies.get('sessionId')
     const username = hasSessionId ? Cookies.get('sessionId').split('|')[0] : ''
 
-    if (hasSessionId) {
-        console.log("has session")
-        console.log("username is ", username)
-    } else {
-        console.log("no session")
-    }
-
     return (
         <div className="App">
             <Router>

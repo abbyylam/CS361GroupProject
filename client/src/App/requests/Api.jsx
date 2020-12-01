@@ -14,6 +14,12 @@ function FetchRecipe(recipeId) {
     return(fetch(url));
 }
 
+function FetchRecipes() {
+    let url = `${baseUrl}/recipes`
+
+    return(fetch(url))
+}
+
 function FetchIngredient(ingredientId) {
     const queryString = `ingredientId=${encodeURIComponent(ingredientId)}`;
     let url = `${baseUrl}/ingredient?${queryString}`;
@@ -83,6 +89,7 @@ function LogoutAccount() {
 module.exports = {
     RecipeSearch: RecipeSearch,
     FetchRecipe: FetchRecipe,
+    FetchRecipes: FetchRecipes,
     CreateAccount: CreateAccount,
     LoginAccount: LoginAccount,
     LogoutAccount: LogoutAccount,

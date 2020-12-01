@@ -22,7 +22,7 @@ module.exports.ingredients = [
     ['mayonnaise', false],
     ['chiles', false],
     ['almonds', false],
-    ['mushrooms', false],
+    ['mushrooms', false], // 24
     ['bacon', true],
     ['coconut', false],
     ['beets', false],
@@ -93,5 +93,43 @@ module.exports.ingredients = [
     ['grass-fed beef', true],
     ['tomato sauce', false],
     ['pasture-raised mozzarella', false],
-    ['vegan mozzarella', false]
+    ['vegan mozzarella', false],
+    ['pasture-raised butter', false],
+    ['free-range chicken', false],
+    ['pasture-raised egg', false],
+    ['pasture-raised pork', false],
+    ['pasture-raised beef', false],
+    ['pasture-raised turkey', false],
+    ['organic milk', false],
+    ['organic bacon', false],
+    ['pasture-raised lamb', false],
+    ['oil and a brush', false],
+    ['organic chicken broth', false],
+    ['organic feta', false],
+    ['organic cheddar', false],
+    ['organic parmesan', false],
+    ['organic mozzarella', false],
+    ['organic yogurt', false],
+    ['organic cottage cheese', false],
+    ['organic whipping cream', false],
+    ['organic chicken breast', false],
+    ['organic pepperoni', false],
+    ['organic salami', false],
+    ['organic hot dogs', false],
+    ['egg noodle', true],
+    ['organic egg noodle', false],
+    ['seitan', false], // 120
+    ['tofu', false], // 121
+    ['tempeh', false], // 122
+    ['jackfruit', false], // 123
+    ['cauliflower', false], // 124
+    ['eggplant', false], //125,
+    ['soymilk', false], // 126
+    ['rice milk', false],// 127
+    ['mushroom broth', false], // 128
+    ['vegetable broth', false], // 129
+    ['basil pesto', false], // 130
+    ['organic sour cream', false], //131
+    ['buns', false], // 132
+    ['linguine', false]
 ];   
