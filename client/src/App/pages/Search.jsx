@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Fragment } from 'react';
-import { Link, withRouter, BrowserRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { FetchRecipe, RecipeSearch } from '../requests/Api';
 
 class SearchResultView {
@@ -10,7 +9,8 @@ class SearchResultView {
 }
 
 var searchResultStyle = {
-    color: '#212529'
+    color: '#212529',
+    borderBottom: '2px solid #ced4da'
 };
 
 var searchButtonStyle = {
@@ -22,6 +22,7 @@ function Search({ history }) {
     const recipeNameFromUrl = queryStrings.get('name');
     const [searchValue, setSearchValue] = useState(recipeNameFromUrl);
     const [searchResults, setSearchResults] = useState([]);
+    const [showMyRecipesValue, setShowMyRecipesValue] = useState(false);
 
     useEffect(() => {
         if (searchValue) {
@@ -40,13 +41,17 @@ function Search({ history }) {
         setSearchValue(e.target.value);
     };
 
+    const updateShowMyRecipesValue = (e) => {
+        setShowMyRecipesValue(e.target.checked);
+    }
+
     const onSearchSubmit = (e) => {
-        performSearch(searchValue);
+        performSearch(searchValue, showMyRecipesValue);
         e.preventDefault();
     };
 
-    const performSearch = (name) => {
-        RecipeSearch(name)
+    const performSearch = (name, includeUserOwnedRecipes = false) => {
+        RecipeSearch(name, includeUserOwnedRecipes)
         .then(res => res.json())
         .then((apiResponse) => {
             return apiResponse.success
@@ -99,7 +104,7 @@ function Search({ history }) {
     const createResultItem = (searchResultViewItem) => {
         return (searchResultViewItem.name)
             ? (<Link to={"/recipe/" + searchResultViewItem.id} key={searchResultViewItem.id}>
-                    <div className="column" style={searchResultStyle}>
+                    <div className="column mb-2" style={searchResultStyle}>
                         <h5 className="text-left mb-3">{searchResultViewItem.name}</h5>
                         <h6 className="text-left">Ingredients:</h6>
                         <p className="text-left">{searchResultViewItem.ingredients.reduce(function(total, current) {
@@ -120,7 +125,7 @@ function Search({ history }) {
         <form className="d-flex">
             <div className="mr-sm-2 text-left">
                 <input className="form-control mr-sm-2" type="text" placeholder="Search for a recipe" aria-label="Search" value={searchValue} onChange={updateSearchValue} />
-                <label><input name="showMine" type="checkbox"/> Show my recipes</label>
+                <label><input name="showMine" type="checkbox" checked={showMyRecipesValue} onChange={updateShowMyRecipesValue}/> Show my recipes</label>
             </div>
             <div className="mr-sm-2">
                 <button className="btn btn-dark" style={searchButtonStyle} type="submit" onClick={onSearchSubmit}>Search</button>
