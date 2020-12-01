@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FetchRecipe } from '../requests/Api';
 import Ingredient from './Ingredient';
-import EthicalAlternative from './EthicalAlternative';
 
 class Recipe extends Component {
     constructor (props) {
@@ -10,14 +9,8 @@ class Recipe extends Component {
         this.state = {
             success: null,
             message: '',
-            recipe: null,
-            modalOpen: false,
-            issueIngredient: null
+            recipe: null
         };
-
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
-        this.setIssueIngredient = this.setIssueIngredient.bind(this);
     }
 
     componentDidMount() {
@@ -39,27 +32,6 @@ class Recipe extends Component {
             }
         });
     };
-
-    renderModal = () => {
-        const {modalOpen, issueIngredient} = this.state;
-
-        return(
-            <EthicalAlternative modalOpen={this.state.modalOpen} issueIngredient={this.state.issueIngredient} onClose={this.closeModal} />
-        )
-    }
-
-    openModal() {
-        this.setState({modalOpen: true});
-    };
-
-    closeModal = (ingredient) => {
-        this.setState({modalOpen: false, issueIngredient: ingredient});
-    };
-
-    setIssueIngredient(ingredient) {
-        this.setState({issueIngredient: ingredient});
-    }
-
 
     render() {
         if (this.state.success && !this.state.recipe) {

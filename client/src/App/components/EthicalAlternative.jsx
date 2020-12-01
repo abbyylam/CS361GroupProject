@@ -60,7 +60,7 @@ class EthicalAlternative extends Component {
             let alternatives = [];
             if (this.state.altIngredients) {
                 for (let i = 0; i < this.state.altIngredients.length; i++) {
-                    alternatives.push(<Ingredient ingredient={this.state.altIngredients[i]} key={i} asAlternative={true} />);
+                    alternatives.push(<Ingredient ingredient={this.state.altIngredients[i]} key={i} asAlternative={true} onSwap={this.props.onSwap} />);
                 }
             } else {
                 alternatives.push(<div className="col-12">No alternatives found</div>);
@@ -77,6 +77,7 @@ class EthicalAlternative extends Component {
                             <div className="row">{alternatives}</div>
                         </Modal.Body>
                         <Modal.Footer>
+                            {this.props.hasSwapped && <Button variant="secondary" onClick={this.props.doRevert}>Revert to original ingredient</Button>}
                             <Button variant="link" onClick={this.props.onClose}>Use this recipe as-is</Button>
                         </Modal.Footer>
                     </div>;

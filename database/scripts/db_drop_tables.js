@@ -3,6 +3,7 @@ var dbConfig = require('../db_config.js')
 var OnSqlError = require('../db_utils.js').OnSQLError;
 
 connect()
+    .then(dropUserRecipeTable)
     .then(dropUserTable)
     .then(dropIngredientIssueTable)
     .then(dropIngredientAlternativeTable)
@@ -107,6 +108,19 @@ function dropRecipeIngredientTable(con) {
     return new Promise(function(resolve, reject) {
         process.stdout.write('Dropping \'recipeIngredient\' table... ');
         var sql = 'DROP TABLE recipeIngredient;';
+
+        con.query(sql, function(err, result) {
+            if (err) OnSqlError(con, err);
+            process.stdout.write('Success\n');
+            resolve(con);
+        });
+    });
+}
+
+function dropUserRecipeTable(con) {
+    return new Promise(function(resolve, reject) {
+        process.stdout.write('Dropping \'userRecipe\' table... ');
+        var sql = 'DROP TABLE userRecipe;';
 
         con.query(sql, function(err, result) {
             if (err) OnSqlError(con, err);
