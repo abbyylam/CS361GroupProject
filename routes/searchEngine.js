@@ -1,3 +1,5 @@
+const getUserIdFromSession = require('./helper/getUserIdFromSession')
+
 module.exports = function(pool) {
     var module = {};
 
@@ -7,6 +9,8 @@ module.exports = function(pool) {
             ? req.query.name.toLowerCase()
             : undefined;
 
+        var showOwnedRecipes = 'showUserRecipes' in req.query;
+
         if (!recipeName || recipeName.length === 0) {
             return res.status(200).json({
                 'success': true,
@@ -15,7 +19,7 @@ module.exports = function(pool) {
             });
         }
 
-        recipeSearch(recipeName)
+        recipeSearch(recipeName, showOwnedRecipes)
             .then((results) => res.status(200).json(
                     {
                         'success': true,
@@ -31,16 +35,40 @@ module.exports = function(pool) {
                         );
                 });
 
-        function recipeSearch(searchValue) {
+        function recipeSearch(searchValue, showOwnedRecipes) {
             return new Promise(function(resolve, reject) {
-                var sql = 'SELECT Id from recipe WHERE Name LIKE ?;';
-                var values = ['%' + searchValue + '%'];
+                var sessionId = 'sessionId' in req.cookies
+                    ? req.cookies.sessionId.split('|')[1]
+                    : undefined;
 
-                pool.query(sql, values, function(err, result) {
-                    if (err) {
-                        reject(err);
+                const baseSql = 'SELECT recipe.Id from recipe ' +
+                    'LEFT JOIN userRecipe ON recipe.id = userRecipe.RecipeId ' +
+                    'WHERE recipe.Name LIKE ? ' +
+                    'AND (userRecipe.Shareable IS NULL)';
+
+                const guestSql = baseSql + ' OR (userRecipe.Shareable = TRUE);';
+
+                const userSql = (showOwnedRecipes)
+                    ? baseSql + ' OR (userRecipe.UserId = ?);'
+                    : baseSql + ' OR (userRecipe.Shareable = TRUE AND userRecipe.UserId <> ?);';
+
+                getUserIdFromSession(pool, sessionId)
+                .then((userId) => {
+                    const effectiveSql = (userId)
+                        ? userSql
+                        : guestSql;
+
+                    var values = ['%' + searchValue + '%'];
+                    if (userId) {
+                        values.push(userId)
                     }
-                    resolve(result);
+
+                    pool.query(effectiveSql, values, function(err, result) {
+                        if (err) {
+                            reject(err);
+                        }
+                        resolve(result);
+                    });
                 });
             });
         }
