@@ -14,6 +14,7 @@ const searchEngine = require('./routes/searchEngine')(pool);
 const recipeListing = require('./routes/recipe')(pool);
 const ingredients = require('./routes/ingredients')(pool)
 const account = require('./routes/account')(pool);
+const userRecipe = require('./routes/userRecipe')(pool);
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(cookieParser())
 /* API Paths */
 app.post('/api/account', account.create);
 app.post('/api/account/login', account.login)
+app.post('/api/createRecipe', userRecipe.create);
 app.get('/api/account/logout', account.logout)
 app.get('/api/search', searchEngine.search);
 app.get('/api/recipe', recipeListing.recipe);

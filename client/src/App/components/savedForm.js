@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { CreateRecipe } from '../requests/Api';
 
 const styles = {
   fontFamily: "sans-serif",
@@ -34,7 +35,15 @@ class ManageApp extends Component {
 
   handleForm = (event) => {
     event.preventDefault(); // stops form from "refreshing" automatically - it follows action, hence the refresh
-    alert(`We Saved the Recipe: ${event.target.name.value}, Ingredients:  ${this.state.recipeIngredients}`); // show a simple dialog box with the values
+   // alert(`We Saved the Recipe: ${event.target.name.value}, Ingredients:  ${this.state.recipeIngredients}`); // show a simple dialog box with the values
+   CreateRecipe(event.target.name.value)
+   .then(res => res.json())
+   .then((result) => {
+       if (result.success) {
+         alert(result.message);
+       }
+       alert(result.message);
+   });
 
     this.setState({ showForm: false });
     // INSERT DATABASE CODE
