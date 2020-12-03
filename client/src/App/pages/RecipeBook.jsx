@@ -23,7 +23,6 @@ function RecipeBook() {
     
     return (
         <div>
-            <h3>This is your Recipe Book</h3>
             <div>
                 {
                     recipes.map(recipe => (
