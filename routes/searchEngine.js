@@ -44,13 +44,13 @@ module.exports = function(pool) {
                 const baseSql = 'SELECT recipe.Id from recipe ' +
                     'LEFT JOIN userRecipe ON recipe.id = userRecipe.RecipeId ' +
                     'WHERE recipe.Name LIKE ? ' +
-                    'AND (userRecipe.Shareable IS NULL)';
+                    'AND (userRecipe.Shareable IS NULL';
 
-                const guestSql = baseSql + ' OR (userRecipe.Shareable = TRUE);';
+                const guestSql = baseSql + ' OR userRecipe.Shareable = TRUE);';
 
                 const userSql = (showOwnedRecipes)
-                    ? baseSql + ' OR (userRecipe.UserId = ?);'
-                    : baseSql + ' OR (userRecipe.Shareable = TRUE AND userRecipe.UserId <> ?);';
+                    ? baseSql + ' OR userRecipe.UserId = ?);'
+                    : baseSql + ' OR (userRecipe.Shareable = TRUE AND userRecipe.UserId <> ?));';
 
                 getUserIdFromSession(pool, sessionId)
                 .then((userId) => {
