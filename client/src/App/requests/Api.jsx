@@ -86,11 +86,9 @@ function LogoutAccount() {
     return(fetch(url, requestOptions))
 }
 
-function CreateRecipe(name) {
+function CreateRecipe(recipe) {
     let url = `${baseUrl}/createRecipe`;
-    let data = {
-        'name': name
-    };
+    let data = recipe;
 
     const requestOptions = {
         method: 'POST',

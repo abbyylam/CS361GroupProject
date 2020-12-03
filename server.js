@@ -11,10 +11,9 @@ const pool = mysql.createPool(dbconfig);
 /* Route Paths */
 const site = require('./routes/site');
 const searchEngine = require('./routes/searchEngine')(pool);
-const recipeListing = require('./routes/recipe')(pool);
+const recipe = require('./routes/recipe')(pool);
 const ingredients = require('./routes/ingredients')(pool)
 const account = require('./routes/account')(pool);
-const userRecipe = require('./routes/userRecipe')(pool);
 
 const app = express();
 
@@ -25,11 +24,11 @@ app.use(cookieParser())
 /* API Paths */
 app.post('/api/account', account.create);
 app.post('/api/account/login', account.login)
-app.post('/api/createRecipe', userRecipe.create);
+app.post('/api/createRecipe', recipe.create);
 app.get('/api/account/logout', account.logout)
 app.get('/api/search', searchEngine.search);
-app.get('/api/recipe', recipeListing.recipe);
-app.get('/api/recipes', recipeListing.recipes);
+app.get('/api/recipe', recipe.recipe);
+app.get('/api/recipes', recipe.recipes);
 app.get('/api/ingredient', ingredients.ingredient);
 app.get('/api/ingredients', ingredients.ingredients);
 app.get('/api/ingredientIssue', ingredients.ingredientIssue);
