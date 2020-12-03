@@ -131,5 +131,7 @@ module.exports.ingredients = [
     ['basil pesto', false], // 130
     ['organic sour cream', false], //131
     ['buns', false], // 132
-    ['linguine', false]
+    ['linguine', false],
+    ['jalapeno', false],
+    ['pineapple', false]
 ];   

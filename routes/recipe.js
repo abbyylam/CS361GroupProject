@@ -79,10 +79,9 @@ module.exports = function (pool) {
 
         return new Promise((resolve, reject) => {
             pool.query(
-                `SELECT recipe.Name as name FROM user 
-                INNER JOIN recipeBook ON user.Id = recipeBook.UserId 
-                INNER JOIN recipeBookRecipe ON recipeBook.Id = recipeBookRecipe.BookId 
-                INNER JOIN recipe ON recipeBookRecipe.RecipeId = recipe.Id 
+                `SELECT recipe.Id as id, recipe.Name as name FROM user 
+                INNER JOIN userRecipe ON user.Id = userRecipe.UserId 
+                INNER JOIN recipe ON userRecipe.RecipeId = recipe.Id 
                 WHERE user.email=?`,
                 [email],
                 (error, result) => {

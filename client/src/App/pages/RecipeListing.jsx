@@ -4,7 +4,13 @@ import Recipe from '../components/Recipe';
 import './RecipeListing.css';
 
 function RecipeListing(props) {
-    const recipeId = props.match.params.recipeId;
+    let recipeId
+
+    if (props.match.params.recipeId) {
+        recipeId = props.match.params.recipeId
+    } else {
+        recipeId = props.recipeId
+    }
 
   return (
       <Recipe recipeId={recipeId} />

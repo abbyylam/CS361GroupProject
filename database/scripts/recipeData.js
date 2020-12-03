@@ -6,5 +6,8 @@ module.exports.recipes = [
     ['Supreme Pizza'],
     ['Chicken Noodle Soup'],
     ['Bacon Cheese Burger'],
-    ['Shrimp Garlic Pasta']
+    ['Shrimp Garlic Pasta'],
+    ['Beef Hot Pot'],
+    ['Pork Fried Rice'],
+    ['Hawaiian Volcano Pizza']
 ];   
