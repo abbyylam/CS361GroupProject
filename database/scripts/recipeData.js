@@ -8,5 +8,5 @@ module.exports.recipes = [
     ['Bacon Cheese Burger'],
     ['Shrimp Garlic Pasta'],
     ['Beef Hot Pot'],
-    ['Pork Friend Rice']
+    ['Pork Fried Rice']
 ];   
