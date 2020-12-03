@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { CreateRecipe } from '../requests/Api';
 
 const styles = {
   fontFamily: "sans-serif",
@@ -13,11 +14,13 @@ class ManageApp extends Component {
     this.state = {
       showForm: false,
       recipeIngredients: [],
-      sharable: false
+      sharable: false,
+      recipe: null
     };
 
     this.onClick = this.onClick.bind(this);
     this.sharedOnClick = this.sharedOnClick.bind(this);
+    this.createRecipeObject = this.createRecipeObject.bind(this);
   }
 
   onClick() {
@@ -32,9 +35,29 @@ class ManageApp extends Component {
     this.setState({recipeIngredients: recipeTextArray});
   }
 
+  // Creates a recipe object to pass to API
+  createRecipeObject(name) {
+    let recipe = {
+      "name" : name,
+      "ingredients" : this.state.recipeIngredients,
+      "shareable" : this.state.sharable
+    }
+
+    return recipe;
+  }
+
   handleForm = (event) => {
     event.preventDefault(); // stops form from "refreshing" automatically - it follows action, hence the refresh
-    alert(`We Saved the Recipe: ${event.target.name.value}, Ingredients:  ${this.state.recipeIngredients}`); // show a simple dialog box with the values
+   // alert(`We Saved the Recipe: ${event.target.name.value}, Ingredients:  ${this.state.recipeIngredients}`); // show a simple dialog box with the values
+   let recipe = this.createRecipeObject(event.target.name.value);
+   CreateRecipe(recipe)
+   .then(res => res.json())
+   .then((result) => {
+       if (result.success) {
+         alert(result.message);
+       }
+       alert(result.message);
+   });
 
     this.setState({ showForm: false });
     // INSERT DATABASE CODE

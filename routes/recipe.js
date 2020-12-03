@@ -115,5 +115,96 @@ module.exports = function (pool) {
         })
     }
 
+    module.create = function (req, res) {
+        let recipe = req.body;
+        let recipeId = null;
+        let ingredientIds = [];
+
+        insertRecipe()
+        .then(getIngredientIds)
+        .then(insertRecipeIngredient)
+        .then(insertUserRecipe);
+
+        function insertRecipe() {
+            return new Promise(function (resolve, reject) {
+                var sql = 'INSERT INTO recipe (Name) VALUES (?);';
+                var values = [recipe.name];
+
+                pool.query(sql, values, function(err, result) {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).json({
+                            'success': false,
+                            'message': 'An error occurred'
+                        });
+                    }
+
+                    recipeId = result.insertId;
+                    resolve();
+                });
+            });
+        }
+        
+        function getIngredientIds() {
+            return new Promise(function (resolve, reject) {
+                var sql = 'SELECT id FROM ingredient WHERE Name IN (?)';
+                var values = [recipe.ingredients];
+
+                pool.query(sql, values, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).json({
+                            'success' : false,
+                            'message' : 'An error occurred'
+                        })
+                    }
+
+                    for (let item in result) {
+                        ingredientIds.push([recipeId, result[item].id]);
+                    }
+                    resolve();
+                });
+            });
+        }
+
+        function insertRecipeIngredient() {
+            return new Promise(function (resolve, reject) {
+                var sql = 'INSERT INTO recipeIngredient (RecipeId, IngredientId) VALUES ?';
+                var values = [ingredientIds];
+
+                pool.query(sql, values, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).json({
+                            'success' : false,
+                            'message' : 'An error occurred'
+                        })
+                    }
+                    resolve();
+                })
+            });
+        }
+
+        function insertUserRecipe() {
+            var sql = 'INSERT INTO userRecipe (Shareable, UserId, RecipeId) VALUES (?,?,?)';
+            var values = [recipe.shareable, 1, recipeId];
+
+            pool.query(sql, values, function(err, result) {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).json({
+                        'success': false,
+                        'message': 'An error occurred'
+                    });
+                }
+
+                return res.status(200).json({
+                    'success': true,
+                    'message': "userRecipe successfully created"
+                });
+            });
+        }    
+    };
+
     return module;
 }

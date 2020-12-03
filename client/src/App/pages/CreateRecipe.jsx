@@ -5,7 +5,8 @@ import { tasks } from "../components/createRecipeIngListData"
 import "../components/createRecipe.css";
 import  ManageApp  from "../components/savedForm"
 import { withRouter } from 'react-router-dom';
-import CRModal from "../components/CRModal.js"
+import CRModal from "../components/CRModal.js";
+import { FetchIngredients } from '../requests/Api';
 
 const dataSource = new ArrayStore({
   key: "text",
@@ -16,6 +17,7 @@ class CreateRecipe extends React.Component {
   constructor() {
     super();
     this.state = {
+      ingredients: null,
       selectionMode: "single",
       selectAllMode: "page",
       selectedItemKeys: [],
@@ -25,6 +27,21 @@ class CreateRecipe extends React.Component {
     this.onSelectionModeChange = this.onSelectionModeChange.bind(this);
     this.onSelectAllModeChange = this.onSelectAllModeChange.bind(this);
     this.onSelectedItemKeysChange = this.onSelectedItemKeysChange.bind(this);
+  }
+
+  componentDidMount() {
+    FetchIngredients()
+    .then(res => {
+      return res.json();
+    })
+    .then(res => {
+      let ingArr = [];
+      res.data.map((ingredient, index) => {
+        ingArr.push(ingredient.Name);
+      });
+
+      this.setState({ingredients: ingArr});
+    })
   }
 
   onSelectionModeChange(args) {
@@ -87,7 +104,7 @@ class CreateRecipe extends React.Component {
         <div className="parent" style={{backgroundColor: "#282c34", color: "white"}}>
           <div id="wrapper" className="center wide"style={{color: "white"}}>
             <p style={{ textAlign: "center" }}> INGREDIENT LIST! </p>
-            { this.newIngredientList(dataSource) }
+            { this.newIngredientList(this.state.ingredients) }
           </div>
 
           <div id="wrapper" className="center2 narrow">

@@ -86,6 +86,19 @@ function LogoutAccount() {
     return(fetch(url, requestOptions))
 }
 
+function CreateRecipe(recipe) {
+    let url = `${baseUrl}/createRecipe`;
+    let data = recipe;
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    };
+
+    return(fetch(url, requestOptions));
+}
+
 module.exports = {
     RecipeSearch: RecipeSearch,
     FetchRecipe: FetchRecipe,
@@ -96,5 +109,6 @@ module.exports = {
     FetchIngredient: FetchIngredient,
     FetchIngredients: FetchIngredients,
     FetchIngredientIssue: FetchIngredientIssue,
-    FetchIngredientAlternatives: FetchIngredientAlternatives
+    FetchIngredientAlternatives: FetchIngredientAlternatives,
+    CreateRecipe: CreateRecipe
 };
